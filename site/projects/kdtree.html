@@ -1,0 +1,8 @@
+---
+layout: layout.njk
+tags: project
+title: KD tree visualisation
+date: 2017-05-26
+---
+<iframe width="560" height="315" src="https://www.youtube.com/embed/y1sp2v8yaVo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Kd-trees are used to accelerate 3d rendering by spatially partitioning a scene and can be easily traversed by a ray or tested against a frustum to see what's visible and what can be ignored. They're hierarchical and by making all of the spatial divisions equal can be specialised into an octree which has its own advantages (no links between nodes are needed for traversal).<br><br>I needed a visualisation of a kd tree so I could demonstrate how this works, so I put together this opengl demo which builds a kd tree from a 3d model, and then renders it as bounding boxes for each node, down to a specified level. A ray can also be added in which case that will also be drawn and the intersected nodes will be highlighted.</p>

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    {% set css %}{% include "style.css" %}{% endset %}
+    <style>{{ css | safe }}</style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+      <h1>Caitlin Wilks</h1>
+      cat@cat.bio
+      <br>
+      <a href="https://github.com/catchouli">github.com/catchouli</a>
+      </header>
+      <hr>
+      <nav>
+      <a href="/">About</a>
+      <a href="/projects">Projects</a>
+      </nav>
+      {{ content | safe }}
+    </div>
+  </body>
+</html>
