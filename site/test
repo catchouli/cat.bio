@@ -1,0 +1,2 @@
+#!/bin/sh
+eleventy --serve --port 15030
