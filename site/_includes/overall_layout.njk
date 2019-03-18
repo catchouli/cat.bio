@@ -10,17 +10,18 @@
   <body>
     <div id="wrapper">
       <header>
-      <h1>Caitlin Wilks</h1>
-      cat@cat.bio
-      <br>
-      <a href="https://github.com/catchouli">github.com/catchouli</a>
+        <h1>Caitlin Wilks</h1>
+        cat@cat.bio<br>
+        <a href="https://github.com/catchouli">github.com/catchouli</a>
       </header>
       <hr>
       <nav>
-      <a href="/">About</a>
-      <a href="/projects">Projects</a>
+       <a href="/">About</a>
+       <a href="/projects">Projects</a>
       </nav>
-      {{ content | safe }}
+      <div id="content">
+        {{ content | safe }}
+      </div>
     </div>
   </body>
 </html>

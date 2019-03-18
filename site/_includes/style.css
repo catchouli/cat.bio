@@ -5,11 +5,6 @@ body {
   line-height: 1.0;
 }
 
-#wrapper {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
 header {
   text-align: center;
   line-height: 1.15;
@@ -28,7 +23,7 @@ a {
   text-decoration: none;
 }
 
-article iframe {
+iframe {
   margin: 0 auto;
   display: block;
 }
@@ -48,4 +43,21 @@ h2 {
 h3 {
   font-size: 12pt;
   font-weight: 700;
+}
+
+img {
+  max-width: 560px;
+}
+
+#wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.center {
+  text-align: center;
+}
+
+#projects article {
+  margin-bottom: 2em;
 }

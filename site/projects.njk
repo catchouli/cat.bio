@@ -1,6 +1,6 @@
 ---
-layout: layout.njk
-title: Projects | cat.bio
+title: Projects
+layout: overall_layout.njk
 pagination:
   data: collections.project
   size: 5
@@ -8,12 +8,12 @@ pagination:
   alias: projects
 ---
 {%- for project in projects -%}
-<article>
+<div id="projects">
+<article class="project">
 <h2>{{ project.data.title }}</h2>
-<p>{{ project.data.date.toLocaleDateString(undefined, {day:"2-digit",month:"2-digit",year:"numeric"}) }}</p>
+<p>{{ project.data.date | formatDate }}</p>
 {{ project.templateContent | safe }}
 <a href="{{ project.url }}">Read more...</a>
-<br>
 </article>
 {%- endfor -%}
 
@@ -21,4 +21,5 @@ pagination:
   <a href="{{ pagination.previousPageHref }}" style="flex: 1 1 auto">Previous Page</a>
   <p style="flex: 1 1 auto;text-align: center; margin-top: 0">Page {{ pagination.pageNumber }}</p>
   <a href="{{ pagination.nextPageHref }}" style="flex: 1 1 auto;text-align: right">Next Page</a>
+</div>
 </div>
