@@ -1,5 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-{{ section.content | safe }}
+<section class="hero">
+    <div class="hero-body">
+        <p class="title">
+            {{ section.title }}
+        </p>
+        {% if section.extra.subtitle %}
+        <p class="subtitle">
+            {{ section.extra.subtitle }}
+        </p>
+        {% endif %}
+        {{ section.content | safe }}
+    </div>
+</section>
 {% endblock content %}

@@ -1,7 +1,29 @@
 // Dark theme colors
-// https://coolors.co/e5d4ed-6d72c3-5941a9-514f59-1d1128
-// https://paletton.com/#uid=14e0u0kttgFkup1oLl0B2bONh6S
-$background-color-dark: #1D1128;
+// http://scg.ar-ch.org/
+$color-base: #23115B;
+$color-darker-1: #1b0d45;
+$color-darker-2: #120930;
+$color-darker-3: #0a051b;
+$color-darker-4: #020105;
+$color-lighter-1: #2b1570;
+$color-lighter-2: #341986;
+$color-lighter-3: #3c1d9b;
+$color-lighter-4: #4421b1;
+$color-lighter-5: #4c25c6;
+$color-lighter-6: #572dd8;
+$color-lighter-7: #6843dc;
+$color-lighter-8: #7958e0;
+$color-lighter-9: #8a6ee4;
+$color-desaturate-1: #241458;
+$color-desaturate-2: #261656;
+$color-desaturate-3: #271953;
+$color-desaturate-4: #2a1e4d;
+$color-desaturate-5: #2d2448;
+
+$background-color-dark: $color-darker-1;
+$foreground-color-dark: $color-desaturate-1;
+$title-color-dark: rgb(248, 242, 242);
+$subtitle-color-dark: #EEE;
 $text-color-dark: rgb(248, 242, 242);
 $text-color-strong-dark: rgb(255, 255, 255);
 $heading-color-dark: rgb(253, 151, 31);
@@ -23,13 +45,21 @@ $divider-bottom-color-dark: rgb(128, 128, 128);
         font-weight: bold;
     }
 
-    .footer {
-        background-color: $background-color-dark;
+    #main-container, .footer {
+        background-color: $foreground-color-dark;
     }
 
     .divider {
         border-top-color: $divider-top-color-dark;
         border-bottom-color: $divider-bottom-color-dark;
+    }
+
+    .title {
+        color: $title-color-dark;
+    }
+
+    .subtitle {
+        color: $subtitle-color-dark;
     }
 }
 
@@ -37,6 +67,7 @@ $divider-bottom-color-dark: rgb(128, 128, 128);
 body {
     @include dark-theme;
     font-family: 'Kanit', sans-serif;
+    letter-spacing: 0.2px;
 }
 
 h1 {
@@ -56,8 +87,4 @@ h3 {
 h1, h2, h3, h4, h5 {
     font-weight: bold;
     line-height: 3.0;
-}
-
-.footer, .header, .nav {
-    text-align: center;
 }
