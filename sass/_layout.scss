@@ -1,14 +1,31 @@
+// Make main container a fixed size column.
+// TODO: Make this work better on mobile devices.
 #main-container {
     margin: 0 auto;
     max-width: 800px;
+    min-height: 100vh;
 }
 
 .header {
     padding-top: 30pt;
+
+    img#headshot {
+        width: 150px;
+    }
 }
 
-.nav a {
-    margin: 0 1em;
+.footer {
+    img#ferris {
+        width: 100px;
+    }
+}
+
+.nav {
+    margin: 1em 0;
+
+    a {
+        margin: 0 1em;
+    }
 }
 
 .divider {

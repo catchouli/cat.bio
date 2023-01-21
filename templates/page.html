@@ -1,5 +1,17 @@
 {% extends "base.html" %}
-test
+
 {% block content %}
-{{ page.content | safe }}
+<section class="hero">
+    <div class="hero-body">
+        <p class="title">
+            {{ page.title }}
+        </p>
+        {% if page.extra.subtitle %}
+        <p class="subtitle">
+            {{ page.extra.subtitle }}
+        </p>
+        {% endif %}
+        {{ page.content | safe }}
+    </div>
+</section>
 {% endblock content %}
