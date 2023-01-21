@@ -1,6 +1,0 @@
-#!/bin/sh
-pushd ../cv
-./build html
-popd
-cp ../cv/out/cv.html _includes/cv.html
-eleventy

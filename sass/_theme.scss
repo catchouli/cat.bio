@@ -1,0 +1,63 @@
+// Dark theme colors
+// https://coolors.co/e5d4ed-6d72c3-5941a9-514f59-1d1128
+// https://paletton.com/#uid=14e0u0kttgFkup1oLl0B2bONh6S
+$background-color-dark: #1D1128;
+$text-color-dark: rgb(248, 242, 242);
+$text-color-strong-dark: rgb(255, 255, 255);
+$heading-color-dark: rgb(253, 151, 31);
+$link-color-dark: rgb(111, 157, 204);
+$divider-top-color-dark: rgb(85, 85, 85);
+$divider-bottom-color-dark: rgb(128, 128, 128);
+
+// Dark theme rules
+@mixin dark-theme {
+    background: $background-color-dark;
+    color: $text-color-dark;
+
+    a {
+        color: $link-color-dark;
+    }
+
+    strong {
+        color: $text-color-strong-dark;
+        font-weight: bold;
+    }
+
+    .footer {
+        background-color: $background-color-dark;
+    }
+
+    .divider {
+        border-top-color: $divider-top-color-dark;
+        border-bottom-color: $divider-bottom-color-dark;
+    }
+}
+
+// Apply dark theme by default - no light theme for now, just monokai mode :)
+body {
+    @include dark-theme;
+    font-family: 'Kanit', sans-serif;
+}
+
+h1 {
+    font-size: 18pt;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 12pt;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: bold;
+    line-height: 3.0;
+}
+
+.footer, .header, .nav {
+    text-align: center;
+}
