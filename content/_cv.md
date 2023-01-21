@@ -1,9 +1,12 @@
-## ABOUT
++++
+title = "CV"
++++
+## About
 Enthusiastic software engineer with a diverse range of skills and interests. Primary experience in **C++** writing **high performance 3d visualisation software**, with a side passion for **Haskell** and **functional programming**. Professional interests include **3d graphics**, **machine learning**, **automation**, and **reverse engineering**. Self taught **hardware hacker** and intermediate **Japanese** speaker. Fast learner and eager to diversify.
 
-## PROFESSIONAL EXPERIENCE
+## Professional Experience
 
-### Software Engineer, Scrum Master
+### Senior Software Engineer
 Virtalis Ltd, 2015 - Present
 
 Developed high performance 3d visualisation software for industry, geoscience, and training, primarily in C++.

@@ -1,6 +1,0 @@
----
-title: Real-time mesh slicing
-date: 2012-04-08
----
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RUmYGWk-9zU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<p>I needed a real-time mesh slicing effect for a project a friend was working on so I put together this test application to demonstrate the technique. It works by first dividing the list of triangles in a mesh into two, one set for each side of the plane. For triangles that intersect the plane, it divides them and adds them to one side or the other. This implementation is on the CPU since it's an example but it should be parallelisable.</p>

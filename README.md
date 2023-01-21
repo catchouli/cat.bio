@@ -1,2 +1,2 @@
 # cat.bio
-Build system and source files for cat.bio - run ./build in the directory site to build it.
+Build system and source files for my portfolio/personal site cat.bio, run with `zola serve` (https://www.getzola.org/)
