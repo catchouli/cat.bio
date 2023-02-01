@@ -21,7 +21,7 @@ $color-desaturate-4: #2a1e4d;
 $color-desaturate-5: #2d2448;
 
 $background-color-dark: $color-darker-1;
-$foreground-color-dark: $color-desaturate-1;
+$foreground-color-dark: #2f1f62;
 $title-color-dark: rgb(248, 242, 242);
 $subtitle-color-dark: #EEE;
 $text-color-dark: rgb(248, 242, 242);
@@ -67,24 +67,41 @@ $divider-bottom-color-dark: rgb(128, 128, 128);
 body {
     @include dark-theme;
     font-family: 'Kanit', sans-serif;
-    letter-spacing: 0.2px;
 }
 
 h1 {
-    font-size: 18pt;
-    font-weight: bold;
+    font-size: 24pt;
+    line-height: 3.0;
 }
 
 h2 {
-    font-size: 14pt;
-    font-weight: bold;
+    font-size: 20pt;
+    line-height: 2.0;
+    margin-bottom: 0.5pt;
 }
 
 h3 {
-    font-size: 12pt;
+    font-size: 16pt;
+    line-height: 1.5;
+    margin-bottom: 5pt;
+}
+
+h4 {
+    font-size: 14pt;
+    line-height: 1.0;
+    margin-bottom: 0;
 }
 
 h1, h2, h3, h4, h5 {
     font-weight: bold;
-    line-height: 3.0;
+}
+
+ul {
+    list-style: circle;
+    margin-left: 1.5em;
+    margin-bottom: 5pt;
+}
+
+p {
+    margin: 1em 0;
 }
