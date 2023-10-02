@@ -1,17 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="hero">
-    <div class="hero-body">
-        <p class="title">
-            {{ page.title }}
-        </p>
-        {% if page.extra.subtitle %}
-        <p class="subtitle">
-            {{ page.extra.subtitle | safe }}
-        </p>
-        {% endif %}
-        {{ page.content | safe }}
+    <div class="columns">
+        <div class="cw-panel column">
+            {% if page.title %}
+                <p class="cw-panel-heading title is-3">
+                    {{ page.title }}
+                </p>
+            {% endif %}
+            <div class="cw-panel-block">
+                {{ page.content | safe }}
+            </div>
+        </div>
     </div>
-</section>
 {% endblock content %}

@@ -7,6 +7,8 @@ use comrak::{parse_document, Arena, ComrakOptions};
 use docx_rs::*;
 use lazy_static::lazy_static;
 
+/// CV builder that builds my CV from markdown.
+
 /// CV.md path.
 const CV_PATH: &str = "../content/_cv.md";
 

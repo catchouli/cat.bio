@@ -1,17 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="hero">
-    <div class="hero-body">
-        <p class="title">
-            {{ section.title }}
-        </p>
-        {% if section.extra.subtitle %}
-        <p class="subtitle">
-            {{ section.extra.subtitle }}
-        </p>
-        {% endif %}
-        {{ section.content | safe }}
+    {% set about_md=get_page(path="_about.md") %}
+    {% set interests_md=get_page(path="_interests.md") %}
+    {% set project_md=get_page(path="projects/better-tactics.md") %}
+
+    <div class="columns">
+        <div class="cw-panel column is-two-thirds">
+            <p class="cw-panel-heading title is-3">
+                About
+            </p>
+            <div class="cw-panel-block">
+                {{ about_md.content | safe }}
+            </div>
+        </div>
+        <div class="cw-panel column">
+            <p class="cw-panel-heading title is-3">
+                Interests
+            </p>
+            <div class="cw-panel-block">
+                {{ interests_md.content | safe }}
+            </div>
+        </div>
     </div>
-</section>
+    <div class="columns">
+        <div class="cw-panel column">
+            <p class="cw-panel-heading title is-3">
+                Featured project - {{ project_md.title }}
+            </p>
+            <div class="cw-panel-block">
+                {% set page=project_md %}
+                {% include "_project_info.html" %}
+                <a href="{{ page.permalink }}">Read more...</a>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

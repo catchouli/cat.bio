@@ -1,27 +1,7 @@
 // Dark theme colors
 // http://scg.ar-ch.org/
-$color-base: #23115B;
-$color-darker-1: #1b0d45;
-$color-darker-2: #120930;
-$color-darker-3: #0a051b;
-$color-darker-4: #020105;
-$color-lighter-1: #2b1570;
-$color-lighter-2: #341986;
-$color-lighter-3: #3c1d9b;
-$color-lighter-4: #4421b1;
-$color-lighter-5: #4c25c6;
-$color-lighter-6: #572dd8;
-$color-lighter-7: #6843dc;
-$color-lighter-8: #7958e0;
-$color-lighter-9: #8a6ee4;
-$color-desaturate-1: #241458;
-$color-desaturate-2: #261656;
-$color-desaturate-3: #271953;
-$color-desaturate-4: #2a1e4d;
-$color-desaturate-5: #2d2448;
-
-$background-color-dark: $color-darker-1;
-$foreground-color-dark: #2f1f62;
+$background-color-dark: #352F44;
+$foreground-color-dark: #2A2537;
 $title-color-dark: rgb(248, 242, 242);
 $subtitle-color-dark: #EEE;
 $text-color-dark: rgb(248, 242, 242);
@@ -31,69 +11,10 @@ $link-color-dark: rgb(111, 157, 204);
 $divider-top-color-dark: rgb(85, 85, 85);
 $divider-bottom-color-dark: rgb(128, 128, 128);
 
-// Dark theme rules
-@mixin dark-theme {
+body {
     background: $background-color-dark;
     color: $text-color-dark;
-
-    a {
-        color: $link-color-dark;
-    }
-
-    strong {
-        color: $text-color-strong-dark;
-        font-weight: bold;
-    }
-
-    #main-container, .footer {
-        background-color: $foreground-color-dark;
-    }
-
-    .divider {
-        border-top-color: $divider-top-color-dark;
-        border-bottom-color: $divider-bottom-color-dark;
-    }
-
-    .title {
-        color: $title-color-dark;
-    }
-
-    .subtitle {
-        color: $subtitle-color-dark;
-    }
-}
-
-// Apply dark theme by default - no light theme for now, just monokai mode :)
-body {
-    @include dark-theme;
     font-family: 'Kanit', sans-serif;
-}
-
-h1 {
-    font-size: 24pt;
-    line-height: 3.0;
-}
-
-h2 {
-    font-size: 20pt;
-    line-height: 2.0;
-    margin-bottom: 0.5pt;
-}
-
-h3 {
-    font-size: 16pt;
-    line-height: 1.5;
-    margin-bottom: 5pt;
-}
-
-h4 {
-    font-size: 14pt;
-    line-height: 1.0;
-    margin-bottom: 0;
-}
-
-h1, h2, h3, h4, h5 {
-    font-weight: bold;
 }
 
 ul {
@@ -102,6 +23,57 @@ ul {
     margin-bottom: 5pt;
 }
 
-p {
-    margin: 1em 0;
+.header {
+    .title a {
+        color: $text-color-dark;
+        text-decoration: none;
+    }
+}
+
+.footer {
+    /* For some reason bulma was making it white */
+    background: $background-color-dark;
+}
+
+.columns {
+    /* For some reason bulma adds some negative margin to columns which makes them hard to align */
+    margin: 0 !important;
+}
+
+.cw-panel {
+    background: $foreground-color-dark;
+    border-radius: 6px;
+    box-shadow: 0 .5em 1em -.125em rgba(10,10,10,0.1), 0 0 0 1px rgba(10,10,10,0.02);
+    margin: 1rem;
+}
+
+.cw-panel > .title {
+    width: 100%;
+    text-align: center;
+}
+
+a {
+    color: $link-color-dark;
+}
+
+strong {
+    color: $text-color-strong-dark;
+    font-weight: bold;
+}
+
+.divider {
+    border-top-color: $divider-top-color-dark;
+    border-bottom-color: $divider-bottom-color-dark;
+}
+
+.title {
+    color: $title-color-dark;
+}
+
+.subtitle {
+    color: $subtitle-color-dark;
+}
+
+.project-images {
+    text-align: center;
 }

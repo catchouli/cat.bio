@@ -1,0 +1,17 @@
+{% if paginator %}
+<div class="columns">
+    <div class="cw-panel column pagination">
+        <span class="cw-pagination-link prev-page">
+            {% if paginator.previous %}
+            <a href="{{ paginator.previous }}">Previous page</a>
+            {% endif %}
+        </span>
+        <p>Page {{paginator.current_index}} of {{ paginator.number_pagers }}</p>
+        <span class="cw-pagination-link next-page">
+            {% if paginator.next %}
+            <a href="{{ paginator.next }}">Next page</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="columns">
+    <div class="cw-panel column project">
+        {% if page.title %}
+        <p class="cw-panel-heading title is-3">
+            {{ page.title }}
+        </p>
+        {% endif %}
+
+        {% include "_project_info.html" %}
+    </div>
+</div>
+
+<div class="columns">
+    <div class="cw-panel column">
+        Viewing project details for {{ page.title }}, <a href="/projects/">take me back to projects</a>
+    </div>
+</div>
+{% endblock content %}
