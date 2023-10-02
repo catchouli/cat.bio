@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for page in paginator.pages %}
+    <div class="columns">
+        <div class="cw-panel column">
+            <p class="cw-panel-heading title is-3">
+                {{ page.title }}
+            </p>
+            <div class="cw-panel-block">
+                {% include "_project_info.html" %}
+                <a href="{{ page.permalink }}">Read more...</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% include "_pagination.html" %}
+
+{% endblock content %}

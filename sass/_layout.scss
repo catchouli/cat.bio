@@ -1,30 +1,49 @@
 // Make main container a fixed size column.
-// TODO: Make this work better on mobile devices.
 #main-container {
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 900px;
     min-height: 100vh;
+}
+
+#main-section {
+    /* We want it to take up the extra space that the header and footer aren't using */
+    flex-grow: 1;
 }
 
 .header {
     padding-top: 30pt;
+    flex-grow: 0;
 
     img#headshot {
         width: 150px;
+        clip-path: circle();
+    }
+
+    #my-name {
+        line-height: 0.5;
+    }
+
+    #tagline {
+        margin-bottom: 0.5rem;
     }
 }
 
 .footer {
-    img#ferris {
+    #ferris-container {
         width: 100px;
+        display: inline-block;
+    }
+
+    #ferris-container:hover {
+        transform: rotate(5deg);
     }
 }
 
 .nav {
-    margin: 1em 0;
+    margin: 1rem 0;
 
     a {
-        margin: 0 1em;
+        margin: 0 1rem;
     }
 }
 
@@ -35,9 +54,30 @@
 }
 
 .section {
-    padding-top: 0pt;
+    padding: 0;
 }
 
 .subtitle {
     margin-bottom: 0 !important;
+}
+
+.project-links {
+    text-align: center;
+
+    a {
+        padding: 1pt;
+    }
+}
+
+.pagination {
+    display: flex;
+
+    span {
+        flex-grow: 0;
+        min-width: 5em;
+    }
+
+    p {
+        flex-grow: 1;
+    }
 }
