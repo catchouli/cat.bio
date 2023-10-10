@@ -8,4 +8,4 @@ My name is Caitlin and I'm a senior software engineer from the UK. A few of my s
 
 But I've done a ton of other stuff and love figuring out how to use new technologies and build new things.
 
-If you're hiring and think I might fit the bill, see my <a href="/projects">portfolio</a>, <a href="/cv">see my full CV</a>, or <a href="mailto:cat@cat.bio">contact me</a>!
+If you're hiring and think I might fit the bill, see my <a href="/projects">portfolio</a>, <a href="/cv.pdf">see my full CV</a>, or <a href="mailto:cat@cat.bio">contact me</a>!
