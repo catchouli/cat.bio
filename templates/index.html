@@ -30,8 +30,9 @@
             </p>
             <div class="cw-panel-block">
                 {% set page=project_md %}
+                {% set summary_only=true %}
                 {% include "_project_info.html" %}
-                <a href="{{ page.permalink }}">Read more...</a>
+                <p><a href="{{ page.permalink }}">Read more...</a></p>
             </div>
         </div>
     </div>

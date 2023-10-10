@@ -6,7 +6,7 @@
             <a href="{{ paginator.previous }}">Previous page</a>
             {% endif %}
         </span>
-        <p>Page {{paginator.current_index}} of {{ paginator.number_pagers }}</p>
+        <span>Page {{paginator.current_index}} of {{ paginator.number_pagers }}</span>
         <span class="cw-pagination-link next-page">
             {% if paginator.next %}
             <a href="{{ paginator.next }}">Next page</a>

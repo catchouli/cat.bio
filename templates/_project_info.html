@@ -11,7 +11,7 @@
     </div>
     {% endif %}
 
-    <div class="project-links">
+    <p class="project-links">
         {% if page.extra.link %}
         <a href="{{ page.extra.link }}">[link]</a>
         {% endif %}
@@ -24,7 +24,11 @@
         {% if page.extra.source_link %}
         <a href="{{ page.extra.source_link }}">[source code]</a>
         {% endif %}
-    </div>
+    </p>
 
-    {{ page.content | safe }}
+    {% if summary_only %}
+        {{ page.summary | safe }}
+    {% else %}
+        {{ page.content | safe }}
+    {% endif %}
 </div>
