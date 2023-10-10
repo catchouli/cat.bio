@@ -1,9 +1,9 @@
 +++
 template = "project.html"
 title = "Hexapod design"
-date = "2015-03-11"
+date = "2018-03-24"
 [extra]
-video_link = "https://www.youtube.com/watch?v=F--uV-2nUHk"
+video_link = "https://www.youtube.com/watch?v=-alGbAIFGX8"
 images = [
     "/images/projects/hexapod-design/1.jpg"
 ]
