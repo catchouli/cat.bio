@@ -1,7 +1,7 @@
 +++
 template = "project.html"
 title = "Tyke"
-date = "2017-05-16"
+date = "2017-01-01"
 [extra]
 source_link = "https://github.com/catchouli/tyke"
 video_link = "https://www.youtube.com/watch?v=HDOj2_C6nZk"
@@ -16,3 +16,5 @@ Features:
 - fast minecraft-style blocky terrain
 - functional reactive programming
 - seamless perspective/isometric view transition
+
+<!-- more -->

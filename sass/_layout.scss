@@ -57,6 +57,22 @@
     padding: 0;
 }
 
+p {
+    margin: 1rem;
+    margin-top: 0;
+}
+
+ul {
+    margin: 1rem 3rem;
+    margin-top: 0;
+}
+
+.title {
+    display: block;
+    text-align: center;
+    margin: 1rem auto !important;
+}
+
 .subtitle {
     margin-bottom: 0 !important;
 }

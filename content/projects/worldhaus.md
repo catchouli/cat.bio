@@ -9,4 +9,14 @@ images = [
     "/images/projects/worldhaus/3.png"
 ]
 +++
-another project
+A 2d building mmo for users of raocow's talkhaus. Made as a birthday-joke-update for that website.
+
+Features:
+
+* multiple tilesets including pixel art tiles
+* four tiled layers including a collision layer
+* infinite canvas
+* multiple dimensions
+
+Written in Javascript (Node and browser side)
+<!-- more -->
