@@ -1,23 +1,20 @@
-// Make main container a fixed size column.
-#main-container {
-    margin: 0 auto;
-    max-width: 900px;
-    min-height: 100vh;
+/* ========== Mobile layout ========== */
+
+.header {
+    img#headshot {
+        width: 150px;
+        clip-path: circle();
+    }
 }
 
-#main-section {
-    /* We want it to take up the extra space that the header and footer aren't using */
-    flex-grow: 1;
+.cw-panel {
+    border-radius: 6px;
+    margin: 0.5rem;
 }
 
 .header {
     padding-top: 30pt;
     flex-grow: 0;
-
-    img#headshot {
-        width: 150px;
-        clip-path: circle();
-    }
 
     #my-name {
         line-height: 0.5;
@@ -26,6 +23,11 @@
     #tagline {
         margin-bottom: 0.5rem;
     }
+}
+
+#main-section {
+    /* We want it to take up the extra space that the header and footer aren't using */
+    flex-grow: 1;
 }
 
 .footer {
@@ -47,14 +49,14 @@
     }
 }
 
-.divider {
-    border-top: 1px solid;
-    border-bottom: 1px solid;
-    margin: 3pt 0;
-}
-
 .section {
     padding: 0;
+}
+
+.title {
+    display: block;
+    text-align: center;
+    margin: 1rem auto !important;
 }
 
 p {
@@ -67,14 +69,10 @@ ul {
     margin-top: 0;
 }
 
-.title {
-    display: block;
-    text-align: center;
-    margin: 1rem auto !important;
-}
-
-.subtitle {
-    margin-bottom: 0 !important;
+.divider {
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    margin: 3pt 0;
 }
 
 .project-links {
@@ -95,5 +93,28 @@ ul {
 
     p {
         flex-grow: 1;
+    }
+}
+
+/* ========== Desktop layout ========== */
+@media only screen and (min-width: 768px) {
+    /* Make main container a fixed size column */
+    #main-container {
+        margin: 0 auto;
+        max-width: 900px;
+        min-height: 100vh;
+    }
+
+    .subtitle {
+        margin-bottom: 0 !important;
+    }
+
+    .cw-panel {
+        margin: 1rem;
+    }
+
+    .cw-panel > .title {
+        width: 100%;
+        text-align: center;
     }
 }
