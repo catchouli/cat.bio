@@ -2,3 +2,4 @@ public_html
 cv/out
 site/_site
 prebuild/target
+static/processed_images

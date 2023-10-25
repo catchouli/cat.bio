@@ -8,11 +8,14 @@ download_link = "https://github.com/catchouli/better_tactics/releases/latest"
 images = [
     "/images/projects/better-tactics/1.png",
     "/images/projects/better-tactics/2.png",
-    "/images/projects/better-tactics/3.png"
+    "/images/projects/better-tactics/3.png",
+    "/images/projects/better-tactics/4.png",
+    "/images/projects/better-tactics/5.png",
+    "/images/projects/better-tactics/6.png",
 ]
 +++
 
-Better Tactics is a Chess tactics trainer that uses the concept of <a href="https://en.wikipedia.org/wiki/Spaced_repetition">Spaced Repetition</a> to help you master chess tactics. The idea is to help you gain calculation experience and tactical pattern recognition by repeating puzzles over time. Puzzles you've seen will get queued up for review daily, and puzzles you find hard will be repeated more frequently, while puzzles you find easy will be repeated far less often to make the process more efficient.
+Better Tactics is a Chess tactics trainer that uses the concept of <a href="https://en.wikipedia.org/wiki/Spaced_repetition">Spaced Repetition</a> to help you master chess tactics. The idea is to help you improve your tactical pattern recognition and gain experience calculating tactics, by repeating puzzles you've completed over time. Puzzles you complete will get queued up for review daily, and puzzles you find hard will be repeated more frequently, while puzzles you find easy will be repeated far less often to make the process more efficient.
 
 <!-- more -->
 

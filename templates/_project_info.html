@@ -3,7 +3,7 @@
     <div class="project-images">
         {% for image_path in page.extra.images %}
             {% set thumbnail = resize_image(path=image_path, width=150, height=112,
-                op="fill", format="jpg", quality=100) %}
+                op="fit_height", format="jpg", quality=100) %}
             <a href="{{ image_path }}" target="_blank">
                 <img src="{{ thumbnail.url }}"></img>
             </a>
