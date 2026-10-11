@@ -1,4 +1,5 @@
 +++
+render = false
 +++
 <ul class="interests">
 <li><span class="interest-name">Chess</span>

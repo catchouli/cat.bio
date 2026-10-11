@@ -3,6 +3,7 @@ template = "project.html"
 title = "BassTools"
 date = "2026-09-05"
 [extra]
+featured_blurb = "In-browser practice tools for bass: circle of fourths drills, generated sight reading, and call-and-response ear training."
 link = "https://catchouli.github.io/BassTools/"
 source_link = "https://github.com/catchouli/BassTools"
 images = [

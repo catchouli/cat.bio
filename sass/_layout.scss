@@ -21,11 +21,17 @@
         display: none;
     }
 
-    #ps1-canvas {
-        display: none;
+    #ps1-headshot {
         width: 150px;
         height: 150px;
-        image-rendering: pixelated;
+    }
+}
+
+.ps1-canvas {
+    display: none;
+    image-rendering: pixelated;
+
+    &.draggable {
         cursor: grab;
         touch-action: none;
 
@@ -35,14 +41,25 @@
     }
 }
 
-body.ps1 .header {
-    img#headshot {
+#ps1-ferris {
+    width: 120px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+/* Only swap the images out once their renderer has actually started */
+body.ps1 .ps1-ready {
+    > img {
         display: none;
     }
 
-    #ps1-canvas {
+    > .ps1-canvas {
         display: block;
     }
+}
+
+body.ps1 #ferris-container.ps1-ready {
+    width: 120px;
 }
 
 .cw-panel {
@@ -121,6 +138,17 @@ body.ps1 .header {
 
     .interest-name {
         display: block;
+    }
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 0.5rem;
+
+    .featured-card {
+        margin: 0;
     }
 }
 
@@ -206,5 +234,21 @@ ul {
     .cw-panel > .title {
         width: 100%;
         text-align: center;
+    }
+
+    /* Three across: six tracks with each card spanning two, so a lone card left over
+       on the last row can sit in the middle two tracks */
+    .featured-grid {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 2rem;
+        margin: 1rem;
+
+        .featured-card {
+            grid-column: span 2;
+        }
+
+        .featured-card:nth-child(3n + 1):last-child {
+            grid-column: 3 / span 2;
+        }
     }
 }

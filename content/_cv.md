@@ -1,4 +1,5 @@
 +++
+render = false
 title = "CV"
 [extra]
 subtitle='Printable version: <a href="/cv.pdf">[PDF]</a> <a href="/cv.docx">[DOC]</a>'

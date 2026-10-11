@@ -3,6 +3,7 @@ template = "project.html"
 title = "Venture"
 date = "2026-09-27"
 [extra]
+featured_blurb = "A browser-playable MMORPG in Rust with an authoritative server, a seeded procedural continent, generated trees and buildings, and a full world editor."
 source_link = "https://github.com/catchouli/venture"
 images = [
     "/images/projects/venture/village.jpg",
