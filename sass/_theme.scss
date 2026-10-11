@@ -70,3 +70,82 @@ strong {
 .project-images {
     text-align: center;
 }
+
+.section-heading {
+    color: $heading-color-dark;
+}
+
+.cw-panel-heading a {
+    color: $title-color-dark;
+}
+
+.about-skills strong,
+.interests .interest-name {
+    color: $heading-color-dark;
+}
+
+.featured-card {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0.75em 1.5em -0.25em rgba(0, 0, 0, 0.4);
+    }
+}
+
+#ps1-toggle {
+    font: inherit;
+    color: $heading-color-dark;
+    background: transparent;
+    border: 1px solid $heading-color-dark;
+    border-radius: 4px;
+    padding: 0 0.6rem;
+    cursor: pointer;
+
+    &:hover {
+        background: $heading-color-dark;
+        color: $foreground-color-dark;
+    }
+}
+
+/* ========== PS1 mode ========== */
+
+body.ps1 {
+    .title, #my-name a {
+        text-shadow: 1px 0 rgba(255, 60, 60, 0.55), -1px 0 rgba(60, 200, 255, 0.55);
+    }
+
+    img {
+        image-rendering: pixelated;
+    }
+
+    &::after {
+        /* Scanlines and a vignette over the whole page */
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1000;
+        background:
+            repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px),
+            radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.5) 100%);
+        animation: ps1-flicker 0.15s infinite alternate;
+    }
+}
+
+@keyframes ps1-flicker {
+    from { opacity: 0.92; }
+    to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.ps1::after {
+        animation: none;
+    }
+
+    .featured-card,
+    .featured-card:hover {
+        transition: none;
+        transform: none;
+    }
+}

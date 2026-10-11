@@ -3,6 +3,8 @@ template = "project.html"
 title = "Better Tactics"
 date = "2023-10-01"
 [extra]
+featured_image = "/images/projects/better-tactics/2.png"
+featured_blurb = "A chess tactics trainer in Rust that uses spaced repetition and Glicko-2 ratings to drill pattern recognition, one puzzle at a time."
 source_link = "https://github.com/catchouli/better_tactics"
 download_link = "https://github.com/catchouli/better_tactics/releases/latest"
 images = [
