@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>Caitlin Wilks, Tech Polyglot</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/style.css" />
+        <link rel="stylesheet" href="{{ get_url(path='style.css', cachebust=true) }}" />
         <link rel="icon" href="/images/rustacean-flat-happy.svg">
     </head>
 
@@ -18,6 +18,6 @@
             </section>
             {% include "footer.html" %}
         </div>
-        <script src="/js/ps1.js" defer></script>
+        <script src="{{ get_url(path='js/ps1.js', cachebust=true) }}" defer></script>
     </body>
 </html>

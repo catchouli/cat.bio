@@ -1,4 +1,5 @@
 +++
+render = false
 +++
 I'm Caitlin, a lead developer from the UK with over a decade of experience shipping high-performance software: 3D visualisation, geographic data systems, and the cloud platforms that keep them running. I'm currently back at <strong>Virtalis</strong>, leading a team of six building the next generation of their 3D visualisation products, and wiring AI assistants into them through an MCP server.
 

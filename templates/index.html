@@ -23,10 +23,15 @@
         </div>
     </div>
     <h2 class="title is-3 section-heading">Featured projects</h2>
-    <div class="columns featured">
-        {% for path in ["projects/flex.md", "projects/better-tactics.md", "projects/dreamfield.md"] %}
+    {% set featured = [
+        "projects/flex.md", "projects/better-tactics.md", "projects/dreamfield.md",
+        "projects/duck-game.md", "projects/venture.md", "projects/instructive-chess.md",
+        "projects/basstools.md",
+    ] %}
+    <div class="featured-grid">
+        {% for path in featured %}
         {% set project = get_page(path=path) %}
-        <div class="cw-panel column featured-card">
+        <div class="cw-panel featured-card">
             <a href="{{ project.permalink }}" class="featured-image">
                 {% set cover = resize_image(path=project.extra.featured_image | default(value=project.extra.images[0]), width=480, height=270,
                     op="fill", format="jpg", quality=85) %}

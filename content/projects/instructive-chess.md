@@ -3,6 +3,8 @@ template = "project.html"
 title = "Instructive Chess"
 date = "2026-09-23"
 [extra]
+featured_image = "/images/projects/instructive-chess/game.png"
+featured_blurb = "Computer vision that watches chess videos, reconstructs every game move by move, and lets you search them by the opening you play."
 link = "https://catchouli.github.io/instructive-chess/"
 source_link = "https://github.com/catchouli/instructive-chess"
 images = [
