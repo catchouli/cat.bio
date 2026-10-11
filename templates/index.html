@@ -3,7 +3,6 @@
 {% block content %}
     {% set about_md=get_page(path="_about.md") %}
     {% set interests_md=get_page(path="_interests.md") %}
-    {% set project_md=get_page(path="projects/better-tactics.md") %}
 
     <div class="columns">
         <div class="cw-panel column is-two-thirds">
@@ -23,17 +22,25 @@
             </div>
         </div>
     </div>
-    <div class="columns">
-        <div class="cw-panel column">
-            <p class="cw-panel-heading title is-3">
-                Featured project - {{ project_md.title }}
+    <h2 class="title is-3 section-heading">Featured projects</h2>
+    <div class="columns featured">
+        {% for path in ["projects/flex.md", "projects/better-tactics.md", "projects/dreamfield.md"] %}
+        {% set project = get_page(path=path) %}
+        <div class="cw-panel column featured-card">
+            <a href="{{ project.permalink }}" class="featured-image">
+                {% set cover = resize_image(path=project.extra.featured_image | default(value=project.extra.images[0]), width=480, height=270,
+                    op="fill", format="jpg", quality=85) %}
+                <img src="{{ cover.url }}" alt="{{ project.title }} screenshot">
+            </a>
+            <p class="cw-panel-heading title is-4">
+                <a href="{{ project.permalink }}">{{ project.title }}</a>
             </p>
-            <div class="cw-panel-block">
-                {% set page=project_md %}
-                {% set summary_only=true %}
-                {% include "_project_info.html" %}
-                <p><a href="{{ page.permalink }}">Read more...</a></p>
-            </div>
+            <p class="featured-blurb">{{ project.extra.featured_blurb }}</p>
+            <p class="project-links">
+                <a href="{{ project.permalink }}">[read more]</a>
+                {% if project.extra.source_link %}<a href="{{ project.extra.source_link }}">[source code]</a>{% endif %}
+            </p>
         </div>
+        {% endfor %}
     </div>
 {% endblock content %}

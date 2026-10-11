@@ -1,13 +1,16 @@
 <header class="header has-text-centered is-flex-align-items-flex-end">
     <div class="container columns is-centered is-vcentered">
         <div class="column is-narrow is-centered">
-            <img id="headshot" src="/images/headshot.jpg">
+            <div id="headshot-container">
+                <img id="headshot" src="/images/headshot.jpg" alt="Caitlin Wilks">
+            </div>
+            <button id="ps1-toggle" type="button" hidden>&#9654; PS1 mode</button>
         </div>
         <div class="column is-narrow">
             <h1 class="title is-1" id="my-name">
                 <a href="/">Caitlin Wilks</a>
             </h1>
-            <p id="tagline">Programming language and tech skills polyglot</p>
+            <p id="tagline">Tech Polyglot</p>
             cat@cat.bio<br>
             <a href="https://github.com/catchouli">github.com/catchouli</a>
             {% include "nav.html" %}

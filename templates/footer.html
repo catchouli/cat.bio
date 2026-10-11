@@ -1,6 +1,6 @@
 <footer class="footer has-text-centered">
     <div class="container">
-        <p>&copy;2023 Caitlin Wilks</p>
+        <p>&copy;{{ now() | date(format="%Y") }} Caitlin Wilks</p>
         <p>Built with
             <a href="https://www.getzola.org/">Zola</a> and
             <a href="https://bulma.io/">Bulma</a>
@@ -8,6 +8,6 @@
         </p>
     </div>
     <a id="ferris-container" href="https://www.rust-lang.org/">
-        <img id="ferris" src="images/rustacean-flat-happy.svg" alt="Rustacean">
+        <img id="ferris" src="/images/rustacean-flat-happy.svg" alt="Rustacean">
     </a>
 </footer>

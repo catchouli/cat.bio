@@ -1,9 +1,47 @@
 /* ========== Mobile layout ========== */
 
 .header {
+    #headshot-container {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+    }
+
     img#headshot {
         width: 150px;
         clip-path: circle();
+    }
+
+    #ps1-toggle {
+        display: block;
+        margin: 0.75rem auto 0;
+    }
+
+    #ps1-toggle[hidden] {
+        display: none;
+    }
+
+    #ps1-canvas {
+        display: none;
+        width: 150px;
+        height: 150px;
+        image-rendering: pixelated;
+        cursor: grab;
+        touch-action: none;
+
+        &:active {
+            cursor: grabbing;
+        }
+    }
+}
+
+body.ps1 .header {
+    img#headshot {
+        display: none;
+    }
+
+    #ps1-canvas {
+        display: block;
     }
 }
 
@@ -51,6 +89,57 @@
 
 .section {
     padding: 0;
+}
+
+.section-heading {
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.about-skills {
+    list-style: none;
+    margin: 0 1rem 1rem;
+
+    li {
+        margin-bottom: 0.25rem;
+    }
+
+    strong {
+        display: inline-block;
+        min-width: 7.5em;
+    }
+}
+
+.interests {
+    list-style: none;
+    margin: 0 1rem 1rem;
+
+    li {
+        margin-bottom: 0.75rem;
+        line-height: 1.4;
+    }
+
+    .interest-name {
+        display: block;
+    }
+}
+
+.featured-card {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+
+    .featured-image img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+    }
+
+    .featured-blurb {
+        flex-grow: 1;
+    }
 }
 
 .title {
@@ -101,7 +190,8 @@ ul {
     /* Make main container a fixed size column */
     #main-container {
         margin: 0 auto;
-        max-width: 900px;
+        max-width: 1150px;
+        padding: 0 1rem;
         min-height: 100vh;
     }
 
