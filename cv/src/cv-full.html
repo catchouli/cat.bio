@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Caitlin Wilks — CV</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  @page{ size: A4; margin: 16mm 18mm; }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; background:#fff; color:#141414; }
+  body{
+    font-family:"Source Sans 3", Arial, sans-serif;
+    font-size:10.6pt;
+    line-height:1.48;
+  }
+  .page{ max-width:100%; }
+  h1,h2,h3{ margin:0; }
+
+  header{ padding-bottom:10px; border-bottom:1px solid #bbb; }
+  .name-row{ display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:6px 14px; }
+  h1{
+    font-family:"PT Serif", Georgia, serif;
+    font-weight:700;
+    font-size:22pt;
+    letter-spacing:.2px;
+  }
+  .role-tag{
+    font: 600 10.5pt/1 "IBM Plex Mono", "Courier New", monospace;
+    letter-spacing:.03em;
+    color:#141414;
+  }
+  .contact{
+    margin-top:6px;
+    font-size:9.6pt;
+    color:#333;
+  }
+  .contact .sep{ margin:0 7px; color:#999; }
+
+  .summary{
+    margin-top:12px;
+    font-size:10.2pt;
+    color:#222;
+    padding-top:10px;
+    border-top:1px solid #ddd;
+  }
+  .summary b{ color:#000; font-weight:700; }
+
+  section{ margin-top:16px; }
+  .eyebrow{
+    font: 700 8.6pt/1 "IBM Plex Mono", "Courier New", monospace;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#000;
+    padding-bottom:4px;
+    border-bottom:1px solid #141414;
+    margin-bottom:10px;
+  }
+
+  .skills-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px 24px; }
+  .skill-cat h4{
+    font:700 9.6pt/1 "Source Sans 3", sans-serif;
+    margin-bottom:3px;
+  }
+  .skill-cat p{ margin:0; color:#222; font-size:9.8pt; }
+
+  .role{ margin-bottom:14px; break-inside:avoid; }
+  .role:last-child{ margin-bottom:0; }
+  .role-head{ display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:2px 14px; }
+  .role-title-group{ display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
+  .role h3{
+    font-family:"PT Serif", Georgia, serif;
+    font-weight:700;
+    font-size:11.4pt;
+  }
+  .role .company{ font-size:9.8pt; color:#333; font-style:italic; }
+  .role .dates{
+    font:500 9pt/1 "IBM Plex Mono", "Courier New", monospace;
+    color:#333;
+    white-space:nowrap;
+  }
+  .role-summary{ margin-top:4px; color:#222; font-size:9.8pt; }
+  .role ul{ margin:6px 0 0; padding-left:16px; }
+  .role li{ margin-bottom:3px; font-size:9.8pt; }
+
+  .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:14px 28px; }
+  .block h4{ font-family:"PT Serif", Georgia, serif; font-weight:700; font-size:10.2pt; margin-bottom:4px; }
+  .block p, .block li{ font-size:9.6pt; color:#222; }
+  .block ul{ margin:4px 0 0; padding-left:16px; }
+  .block li{ margin-bottom:3px; }
+  .block a{ color:#141414; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="name-row">
+      <h1>Caitlin Wilks</h1>
+      <span class="role-tag">LEAD DEVELOPER</span>
+    </div>
+    <div class="contact">
+      United Kingdom · Remote<span class="sep">|</span>
+      cat@cat.bio<span class="sep">|</span>
+      cat.bio<span class="sep">|</span>
+      github.com/catchouli
+    </div>
+    <p class="summary">
+      Lead Developer with over a decade shipping high-performance software across 3D visualisation, geographic data systems, and cloud platforms. A genuine technology polyglot &mdash; equally at home in <b>Rust</b>, <b>C++</b>, <b>C#</b>, and <b>Python</b> &mdash; with a record of taking ambiguous, technically hard problems from first principles through to production. Currently leading a team of six at Virtalis, pairing hands-on engineering with technical direction, and using AI-assisted development &mdash; agentic coding tools and LLM-based code review &mdash; to prototype ideas faster without cutting corners on quality.
+    </p>
+  </header>
+
+  <section>
+    <div class="eyebrow">Skills</div>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <h4>Languages &amp; Compute</h4>
+        <p>Rust, C#, C++, Python, Haskell, CUDA / GPGPU</p>
+      </div>
+      <div class="skill-cat">
+        <h4>Cloud &amp; Infrastructure</h4>
+        <p>Kubernetes, Docker, Azure, RabbitMQ, CI/CD</p>
+      </div>
+      <div class="skill-cat">
+        <h4>Architecture</h4>
+        <p>Microservices, CRUD / CQRS, React, cross-platform (Windows/Linux/Mac)</p>
+      </div>
+      <div class="skill-cat">
+        <h4>Leadership &amp; AI-Assisted Engineering</h4>
+        <p>Team leadership, mentoring, Agile/Jira, agentic coding tools, LLM code &amp; security review</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Experience</div>
+
+    <div class="role">
+      <div class="role-head">
+        <div class="role-title-group">
+          <h3>Lead Developer</h3>
+          <span class="company">Virtalis Ltd</span>
+        </div>
+        <span class="dates">Apr 2026 &mdash; Present</span>
+      </div>
+      <p class="role-summary">
+        Returned to Virtalis to take on a direct leadership role, building the next generation of the company's high-performance 3D visualisation products for manufacturing and industrial clients &mdash; a boomerang appointment following an earlier eight-year run at the company from 2015 to 2022.
+      </p>
+      <ul>
+        <li>Leads a team of six developers end-to-end &mdash; setting technical direction, unblocking the hardest problems personally, and owning delivery on key projects.</li>
+        <li>Assesses new tools and techniques for feasibility, including where AI-assisted development can responsibly fit into the team's workflow, before recommending adoption.</li>
+        <li>Uses agentic coding tools such as Claude Code to rapidly prototype new product concepts and technology ahead of committing full engineering time to them.</li>
+        <li>Applies LLM-based analysis to review newly written code for structural weaknesses and security vulnerabilities as part of the development process.</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <div class="role-head">
+        <div class="role-title-group">
+          <h3>Senior Software Engineer</h3>
+          <span class="company">Map Impact Ltd</span>
+        </div>
+        <span class="dates">Jan 2024 &mdash; Mar 2026</span>
+      </div>
+      <p class="role-summary">
+        Developed high-availability, high-performance cloud GIS software using Azure, Kubernetes, Rust, Python, C# and React &mdash; producing geographic datasets for habitat surveying used by local councils and land developers, and the software that delivered them to customers.
+      </p>
+      <ul>
+        <li>Designed and built services to deliver large geographic datasets to customers &mdash; including a custom web feature service benchmarked against GeoServer, and a web-based GIS application for customers to view, operate on, and export their own data.</li>
+        <li>Worked with in-house scientists to build and automate data-processing pipelines, keeping datasets current as new satellite data arrived.</li>
+        <li>Mentored junior engineers on writing production-ready code and shipping it, and broke larger projects into manageable stories and tasks.</li>
+      </ul>
+    </div>
+
+    <div class="role">
+      <div class="role-head">
+        <div class="role-title-group">
+          <h3>Senior Software Engineer</h3>
+          <span class="company">Virtalis Ltd</span>
+        </div>
+        <span class="dates">Jun 2015 &mdash; Oct 2022</span>
+      </div>
+      <p class="role-summary">
+        Built high-performance desktop, distributed, and cloud-based 3D visualisation software for manufacturing and geoscience customers over an eight-year run &mdash; moving from individual contributor to trusted owner of the toughest technical problems in the business.
+      </p>
+      <ul>
+        <li>Directed the design and development of a large new cloud-based product to replace the company's conventional desktop offering, with an emphasis on high-performance backend services.</li>
+        <li>Migrated the development team from an ageing, self-hosted SVN setup to modern Git-based development on Azure, including CI/CD, unit testing, and a GitFlow branching strategy.</li>
+        <li>Built custom solutions for customers' 3D visualisation needs, including a real-time volumetric sky with clouds for flight-training simulators, and support for large, custom streaming data formats.</li>
+        <li>Integrated third-party VR and input hardware into the visualisation suite, occasionally designing custom input devices for specialist use cases.</li>
+        <li>Rendered geographic and geological data onto 3D terrains and other visualisations, working across C++, C#, Kubernetes, and RabbitMQ in desktop and microservice architectures.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="two-col">
+      <div class="block">
+        <div class="eyebrow">Education</div>
+        <h4>BSc, Computer Games Programming</h4>
+        <p>
+          Dissertation: <em>&ldquo;Real-time GPU Ray Tracing with Heterogeneous Volumetric Effects&rdquo;</em> &mdash; direct 3D visualisation of volumetric data on the GPU. Available at cat.bio/dissertation.pdf
+        </p>
+      </div>
+      <div class="block">
+        <div class="eyebrow">Beyond Work</div>
+        <ul>
+          <li>Co-founded a game studio with three friends during university, running it full-time for a year and shipping original games plus freelance work.</li>
+          <li><b>Better Tactics</b> &mdash; a chess tactics trainer written from scratch in Rust, using spaced repetition to build calculation skill and pattern recognition.</li>
+          <li>Runs a self-hosted Kubernetes cluster for a gaming community's forum and web services.</li>
+          <li>Occasional technical partner on game translation and modding projects, reverse-engineering titles to add features or language support.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
