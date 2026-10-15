@@ -24,9 +24,8 @@
     </div>
     <h2 class="title is-3 section-heading">Featured projects</h2>
     {% set featured = [
-        "projects/flex.md", "projects/better-tactics.md", "projects/dreamfield.md",
-        "projects/duck-game.md", "projects/venture.md", "projects/instructive-chess.md",
-        "projects/basstools.md",
+        "projects/stellar-swing.md", "projects/flex.md", "projects/better-tactics.md",
+        "projects/dreamfield.md", "projects/instructive-chess.md", "projects/basstools.md",
     ] %}
     <div class="featured-grid">
         {% for path in featured %}
@@ -42,6 +41,9 @@
             </p>
             <p class="featured-blurb">{{ project.extra.featured_blurb }}</p>
             <p class="project-links">
+                {% if project.extra.steam_link %}<a href="{{ project.extra.steam_link }}">[steam]</a>{% endif %}
+                {% if project.extra.link %}<a href="{{ project.extra.link }}">[try it]</a>{% endif %}
+                {% if project.extra.download_link %}<a href="{{ project.extra.download_link }}">[download]</a>{% endif %}
                 <a href="{{ project.permalink }}">[read more]</a>
                 {% if project.extra.source_link %}<a href="{{ project.extra.source_link }}">[source code]</a>{% endif %}
             </p>
