@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Written by Hand</title>
+<title>Code on GitHub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
-/* Layout: one reading column; a GitHub-style language bar as the spine, then charts and a ledger. */
+/* Layout: one reading column; two eras side by side up top, a switch, then a GitHub-style
+   language bar as the spine, a shared timeline, a language × period grid and repo cards. */
 :root {
   --bg: #12131c; --panel: #1a1c28; --line: #2a2d3e; --fg: #e8e6f0; --muted: #9a98ad;
-  --accent: #ffb86b; --cell: #1f2232;
+  --hand: #ffb86b; --ai: #8fd3ff; --cell: #1f2232;
   --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
   --body: "Instrument Sans", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -19,12 +20,12 @@
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     --bg: #f6f5fa; --panel: #ffffff; --line: #dedbe8; --fg: #1b1a26; --muted: #66647a;
-    --accent: #b25b00; --cell: #eceaf3; color-scheme: light;
+    --hand: #b25b00; --ai: #0a6fa8; --cell: #eceaf3; color-scheme: light;
   }
 }
 :root[data-theme="light"] {
   --bg: #f6f5fa; --panel: #ffffff; --line: #dedbe8; --fg: #1b1a26; --muted: #66647a;
-  --accent: #b25b00; --cell: #eceaf3; color-scheme: light;
+  --hand: #b25b00; --ai: #0a6fa8; --cell: #eceaf3; color-scheme: light;
 }
 * { box-sizing: border-box; }
 body {
@@ -35,33 +36,47 @@ body {
 }
 main { max-width: 1040px; margin: 0 auto; display: grid; gap: 56px; }
 h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(1.8rem, 4.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.01em; }
 h2 { font-size: 1.6rem; font-weight: 700; }
-.eyebrow { font: 600 0.75rem var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.eyebrow { font: 600 0.75rem var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 .muted { color: var(--muted); }
 .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
 section { display: grid; gap: 18px; min-width: 0; }
 section > p { max-width: 65ch; margin: 0; }
 
-/* Hero */
-.hero { display: grid; gap: 14px; }
-.big { font: 800 clamp(4rem, 13vw, 9rem)/0.9 var(--display); letter-spacing: -0.03em; }
-.big small { display: block; font: 600 clamp(1.1rem, 2.6vw, 1.6rem)/1.3 var(--body); letter-spacing: 0; color: var(--muted); margin-top: 14px; }
-.stats { display: flex; flex-wrap: wrap; gap: 10px 28px; font-family: var(--mono); font-size: 0.9rem; color: var(--muted); }
-.stats b { color: var(--fg); font-weight: 600; }
+/* Hero: the two eras */
+.hero { display: grid; gap: 22px; }
+.eras { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 640px) { .eras { grid-template-columns: 1fr; } }
+.era { border-top: 3px solid var(--c); padding-top: 14px; display: grid; gap: 6px; min-width: 0; }
+.era .label { font: 600 0.8rem var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--c); }
+.era .big { font: 800 clamp(3rem, 9vw, 5.6rem)/0.95 var(--mono); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.era .sub { color: var(--muted); font-size: 0.95rem; }
+.era.hand { --c: var(--hand); }
+.era.ai { --c: var(--ai); }
+.ratio { max-width: 65ch; margin: 0; font-size: 1.05rem; }
+.ratio b { font-family: var(--mono); }
+
+/* Era switch */
+.switch { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); justify-self: start; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 10px); z-index: 5; }
+.switch button { font: 600 0.9rem var(--body); color: var(--muted); background: none; border: 0; border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+.switch button[aria-pressed="true"] { background: var(--c); color: var(--bg); }
+.switch button:focus-visible { outline: 2px solid var(--c); outline-offset: 2px; }
+.switch .hand { --c: var(--hand); }
+.switch .ai { --c: var(--ai); }
 
 /* Language bar */
 .langbar { display: flex; height: 18px; border-radius: 9px; overflow: hidden; gap: 2px; background: var(--line); }
-.langbar span { display: block; min-width: 2px; transition: filter 0.15s; }
+.langbar span { display: block; min-width: 2px; }
 .legend { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 6px 24px; margin: 0; padding: 0; list-style: none; }
-.legend li { display: grid; grid-template-columns: 12px 1fr auto auto; align-items: baseline; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--line); cursor: default; }
-.legend li.dim { opacity: 0.35; }
-.dot { width: 12px; height: 12px; border-radius: 50%; align-self: center; }
+.legend li { display: grid; grid-template-columns: 12px 1fr auto auto; align-items: baseline; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.dot { width: 12px; height: 12px; border-radius: 50%; align-self: center; display: inline-block; }
 .legend .pct { color: var(--muted); font-size: 0.8rem; min-width: 3.6em; text-align: right; }
 
-/* Year chart */
+/* Timeline */
 .chart-wrap { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 20px 16px 8px; overflow-x: auto; }
 svg text { fill: var(--muted); font: 11px var(--mono); }
-.tip { position: fixed; pointer-events: none; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 0.85rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 10; min-width: 180px; }
+.tip { position: fixed; pointer-events: none; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 0.85rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 10; min-width: 190px; }
 .tip h4 { margin: 0 0 6px; font: 700 1rem var(--display); }
 .tip div { display: flex; justify-content: space-between; gap: 16px; }
 
@@ -78,21 +93,18 @@ table.heat { border-collapse: separate; border-spacing: 3px; font-size: 0.78rem;
 .repo { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 8px; min-width: 0; }
 .repo header { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
 .repo .name { font: 700 1.05rem var(--display); overflow-wrap: anywhere; }
-.repo .owner { font: 0.75rem var(--mono); color: var(--muted); }
 .repo .mini { display: flex; height: 6px; border-radius: 3px; overflow: hidden; gap: 1px; }
 .repo .meta { font: 0.75rem var(--mono); color: var(--muted); }
-button.more { justify-self: start; font: 600 0.9rem var(--body); color: var(--accent); background: none; border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; cursor: pointer; }
-button.more:hover, button.more:focus-visible { border-color: var(--accent); outline: none; }
+button.more { justify-self: start; font: 600 0.9rem var(--body); color: var(--fg); background: none; border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; cursor: pointer; }
+button.more:hover, button.more:focus-visible { border-color: var(--muted); outline: none; }
 
 /* Method */
 .method { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px 32px; }
 .method div { min-width: 0; }
 .method h3 { font: 700 1rem var(--display); margin: 0 0 4px; }
 .method p { margin: 0; color: var(--muted); font-size: 0.92rem; }
-.excl { display: flex; flex-wrap: wrap; gap: 8px 24px; font-family: var(--mono); font-size: 0.85rem; color: var(--muted); }
-.excl b { color: var(--fg); }
 @media (prefers-reduced-motion: no-preference) {
-  .langbar span, .bar { animation: grow 0.8s cubic-bezier(.2,.8,.2,1) both; transform-origin: left; }
+  .langbar span { animation: grow 0.7s cubic-bezier(.2,.8,.2,1) both; transform-origin: left; }
   @keyframes grow { from { transform: scaleX(0.001); } }
 }
 </style>
@@ -100,27 +112,36 @@ button.more:hover, button.more:focus-visible { border-color: var(--accent); outl
 <body>
 <main>
   <header class="hero">
-    <div class="eyebrow">git blame · all repos · before 1 August 2026</div>
-    <h1 class="big"><span id="total" class="num"></span><small>lines of code Cat wrote by hand, still standing in their GitHub repos before the AI era</small></h1>
-    <div class="stats" id="stats"></div>
+    <div class="eyebrow">Cat's code on GitHub · counted with git blame</div>
+    <h1>Fourteen years by hand, then two and a half months with AI</h1>
+    <div class="eras">
+      <div class="era hand"><span class="label">By hand</span><span class="big" id="hand-total"></span><span class="sub" id="hand-sub"></span></div>
+      <div class="era ai"><span class="label">With AI</span><span class="big" id="ai-total"></span><span class="sub" id="ai-sub"></span></div>
+    </div>
+    <p class="ratio" id="ratio"></p>
   </header>
 
   <section>
-    <div class="eyebrow">By language</div>
+    <div class="eyebrow">Over time</div>
+    <h2>When the lines went in</h2>
+    <p class="muted">Hand-written code by year, then AI-assisted code by month. Each line is dated by the commit that last touched it, and several older projects went into git in one go, which is why 2012 and 2014 tower over the years around them. Hover a bar for the breakdown.</p>
+    <div class="chart-wrap"><svg id="timeline" role="img" aria-label="Lines per year by hand, then per month with AI, stacked by language"></svg></div>
+  </section>
+
+  <div class="switch" role="group" aria-label="Which code to show">
+    <button type="button" class="hand" id="sw-hand" aria-pressed="true">By hand</button>
+    <button type="button" class="ai" id="sw-ai" aria-pressed="false">With AI</button>
+  </div>
+
+  <section>
+    <div class="eyebrow" id="lang-eyebrow">By language</div>
     <div class="langbar" id="langbar" role="img" aria-label="Share of lines by language"></div>
     <ul class="legend" id="legend"></ul>
   </section>
 
   <section>
-    <div class="eyebrow">By year</div>
-    <h2>When the lines went in</h2>
-    <p class="muted">Each line is dated by the commit that last touched it. Several older projects went into git in one go, which is why 2012 and 2014 tower over the years around them. Hover a bar for the breakdown.</p>
-    <div class="chart-wrap"><svg id="years" role="img" aria-label="Lines per year, stacked by language"></svg></div>
-  </section>
-
-  <section>
-    <div class="eyebrow">Language × year</div>
-    <h2>Every language, every year</h2>
+    <div class="eyebrow" id="heat-eyebrow">Language × year</div>
+    <h2 id="heat-title">Every language, every year</h2>
     <div class="heat-wrap"><table class="heat" id="heat"></table></div>
   </section>
 
@@ -134,40 +155,45 @@ button.more:hover, button.more:focus-visible { border-color: var(--accent); outl
   <section>
     <div class="eyebrow">How this was counted</div>
     <div class="method">
-      <div><h3>Blame, not commits</h3><p>Each repo was checked out at its last commit before 1 August 2026, and every source file was run through <span class="num">git blame -w</span>. Only non-blank lines attributed to one of Cat's 16 commit identities count, so deleted and rewritten code doesn't inflate the total.</p></div>
+      <div><h3>Blame, not commits</h3><p>Every source file was run through <span class="num">git blame -w</span>, and only non-blank lines attributed to one of Cat's commit identities count. Deleted and rewritten code doesn't add to either total.</p></div>
+      <div><h3>The two eras</h3><p>By hand: each repo as it stood at its last commit before 1 August 2026, when Cat started committing AI-written code. With AI: each repo as it stands now, counting only lines committed since then.</p></div>
       <div><h3>Other people's code left out</h3><p>Vendored libraries (SDL, Boost, glm, FreeImage, imgui, Bootstrap, jQuery, Farseer Physics, phpBB's theme and more), generated files such as SWIG wrappers, and files carrying someone else's copyright or licence header are excluded, even when Cat committed them.</p></div>
-      <div><h3>Counted once</h3><p>Identical files in several repos count once, and so do near-copies: the same file path in another repo at a similar size, like Stellar Swing Classic inside the remaster or dreamfield's engine and template.</p></div>
-      <div><h3>What's in scope</h3><p>The default branch of every repo on catchouli, Pillowdrift, Catchouli-old, Catchouli-Libraries and talkhaus. Work code that never reached GitHub, like most of 2024, isn't here.</p></div>
+      <div><h3>Counted once</h3><p>Identical files in several repos count once, and so do near-copies: the same file path in another repo at a similar size. Private repositories are counted but not named. Code that never reached GitHub, like most of Cat's day jobs, isn't here.</p></div>
     </div>
-    <div class="excl" id="excl"></div>
   </section>
 </main>
 <div class="tip" id="tip" hidden></div>
 
 <script>
-const DATA = {"total":141565,"files":1862,"repo_count":113,"repos_scanned":119,"excluded":{"vendored":1639477,"generated or licensed":8978,"duplicate":1710617},"by_lang":[["C#",40250],["C++",39384],["Rust",18781],["Java",13854],["Haskell",5844],["JavaScript",5164],["CSS",2271],["GLSL",2213],["HTML",2035],["TypeScript",1959],["C",1892],["CUDA",1813],["HLSL/Cg",1479],["Ruby",1398],["Python",1170],["Vim script",722],["PHP",459],["Lua",259],["SQL",212],["Scala",144],["GDScript",114],["Shell",112],["Swift",32],["Kotlin",4]],"files_by_lang":{"C++":532,"C#":527,"Rust":179,"GLSL":54,"HLSL/Cg":18,"C":11,"CSS":26,"CUDA":10,"Lua":9,"Haskell":74,"Scala":2,"Java":164,"Python":23,"Ruby":71,"JavaScript":42,"Vim script":7,"Shell":19,"HTML":58,"GDScript":8,"TypeScript":6,"SQL":11,"Kotlin":1,"Swift":3,"PHP":7},"by_year":[["2012",19932],["2013",1729],["2014",49406],["2015",11022],["2016",3278],["2017",4883],["2018",2634],["2019",8643],["2020",5956],["2021",5639],["2022",13210],["2023",11243],["2025",2744],["2026",1246]],"lang_year":{"C++":{"2017":2136,"2014":16134,"2012":7265,"2015":9982,"2019":1872,"2018":1382,"2023":613},"C#":{"2012":12667,"2020":4221,"2014":14540,"2022":2160,"2021":4889,"2026":866,"2019":907},"Rust":{"2023":6739,"2022":9644,"2025":1946,"2020":452},"GLSL":{"2014":486,"2017":410,"2018":71,"2023":195,"2022":822,"2019":180,"2020":30,"2015":19},"HLSL/Cg":{"2014":465,"2020":1014},"C":{"2013":1476,"2017":412,"2015":4},"CSS":{"2022":72,"2016":3,"2013":35,"2026":322,"2023":763,"2015":267,"2014":2,"2019":536,"2021":110,"2025":161},"CUDA":{"2017":228,"2014":1509,"2019":76},"Lua":{"2014":92,"2015":167},"Haskell":{"2020":125,"2017":1411,"2018":839,"2016":3186,"2019":283},"Scala":{"2018":144},"Java":{"2018":47,"2014":13807},"Python":{"2021":130,"2019":889,"2018":151},"Ruby":{"2015":186,"2014":1212},"JavaScript":{"2013":218,"2014":231,"2026":56,"2021":319,"2015":81,"2019":3524,"2017":65,"2025":510,"2023":160},"Vim script":{"2015":312,"2016":70,"2022":290,"2023":50},"Shell":{"2016":8,"2025":84,"2022":2,"2015":4,"2021":10,"2019":1,"2017":1,"2026":2},"HTML":{"2016":11,"2017":220,"2023":668,"2022":216,"2014":469,"2021":181,"2019":233,"2025":37},"GDScript":{"2020":114},"TypeScript":{"2023":1959},"SQL":{"2023":60,"2019":142,"2022":4,"2025":6},"Kotlin":{"2023":4},"Swift":{"2023":32},"PHP":{"2014":459}},"repos":[{"name":"Private repositories (39)","owner":"various","lines":23513,"langs":[["C++",6990],["Rust",6215],["JavaScript",4125],["C#",2722]],"first":"2014","last":"2026"},{"name":"StellarSwing","owner":"Pillowdrift","lines":14188,"langs":[["C#",12554],["HLSL/Cg",1455],["JavaScript",179]],"first":"2014","last":"2021"},{"name":"MegaDrillerMole","owner":"Pillowdrift","lines":13807,"langs":[["Java",13807]],"first":"2014","last":"2014"},{"name":"dreamfield","owner":"catchouli","lines":7578,"langs":[["Rust",6913],["GLSL",521],["HTML",144]],"first":"2022","last":"2022"},{"name":"Box2DSandbox","owner":"Catchouli-old","lines":6529,"langs":[["C++",6529]],"first":"2014","last":"2014"},{"name":"Fariss","owner":"Catchouli-old","lines":6428,"langs":[["C#",6428]],"first":"2012","last":"2012"},{"name":"better_tactics","owner":"catchouli","lines":5969,"langs":[["Rust",2924],["TypeScript",1959],["CSS",603],["HTML",423]],"first":"2023","last":"2023"},{"name":"Acun3D","owner":"catchouli","lines":5421,"langs":[["C++",5421]],"first":"2012","last":"2012"},{"name":"VolumeRender","owner":"catchouli","lines":4462,"langs":[["C++",2953],["CUDA",1509]],"first":"2014","last":"2014"},{"name":"coment","owner":"catchouli","lines":3489,"langs":[["C++",3489]],"first":"2014","last":"2015"},{"name":"SuperShooterGuy3D","owner":"Catchouli-old","lines":3477,"langs":[["C#",3453],["HLSL/Cg",24]],"first":"2014","last":"2014"},{"name":"Roogle","owner":"catchouli","lines":2541,"langs":[["C#",2541]],"first":"2021","last":"2021"},{"name":"Planning","owner":"catchouli","lines":2421,"langs":[["C++",2421]],"first":"2014","last":"2014"},{"name":"Battleships","owner":"Catchouli-old","lines":2348,"langs":[["C#",2348]],"first":"2012","last":"2012"},{"name":"ca2d","owner":"Catchouli-old","lines":2220,"langs":[["C++",1766],["GLSL",362],["Lua",92]],"first":"2014","last":"2014"},{"name":"WorldGen","owner":"Catchouli-old","lines":2200,"langs":[["C#",2160],["CSS",40]],"first":"2022","last":"2022"},{"name":"NetPool","owner":"Catchouli-old","lines":2142,"langs":[["C#",2142]],"first":"2012","last":"2012"},{"name":"kumo","owner":"catchouli","lines":2098,"langs":[["C++",1851],["GLSL",171],["CUDA",76]],"first":"2018","last":"2019"},{"name":"StellarSwingClassic","owner":"Pillowdrift","lines":2047,"langs":[["C#",2047]],"first":"2014","last":"2014"},{"name":"everything.raocow","owner":"catchouli","lines":1846,"langs":[["Ruby",1334],["CSS",269],["HTML",161],["JavaScript",78]],"first":"2014","last":"2015"},{"name":"ali","owner":"Catchouli-old","lines":1844,"langs":[["C++",1844]],"first":"2012","last":"2012"},{"name":"akarui","owner":"Catchouli-old","lines":1770,"langs":[["C++",1524],["CUDA",228],["GLSL",18]],"first":"2017","last":"2017"},{"name":"RealTimeMeshSlicing","owner":"catchouli","lines":1355,"langs":[["C++",1355]],"first":"2014","last":"2015"},{"name":"Galaxy","owner":"Catchouli-old","lines":1257,"langs":[["Rust",1257]],"first":"2023","last":"2023"},{"name":"tyke","owner":"catchouli","lines":1121,"langs":[["Haskell",1114],["Shell",7]],"first":"2016","last":"2017"},{"name":"Graveroids","owner":"Catchouli-old","lines":1110,"langs":[["C#",1110]],"first":"2012","last":"2012"},{"name":"logwatcher","owner":"catchouli","lines":1076,"langs":[["C",1076]],"first":"2013","last":"2015"},{"name":"learny","owner":"Catchouli-old","lines":1035,"langs":[["Haskell",1032],["CSS",3]],"first":"2016","last":"2016"},{"name":"RaoVids","owner":"catchouli","lines":1010,"langs":[["C#",840],["CSS",170]],"first":"2026","last":"2026"},{"name":"wordie","owner":"catchouli","lines":975,"langs":[["Rust",971],["SQL",4]],"first":"2022","last":"2022"},{"name":"everythingv3","owner":"catchouli","lines":907,"langs":[["C#",907]],"first":"2019","last":"2019"},{"name":"hsr","owner":"Catchouli-old","lines":859,"langs":[["Haskell",839],["GLSL",20]],"first":"2018","last":"2018"},{"name":"planet","owner":"Catchouli-old","lines":801,"langs":[["C",412],["C++",379],["GLSL",10]],"first":"2017","last":"2017"},{"name":"tc","owner":"Catchouli-old","lines":718,"langs":[["C++",718]],"first":"2019","last":"2019"},{"name":"GoL","owner":"Catchouli-old","lines":639,"langs":[["C#",639]],"first":"2012","last":"2012"},{"name":"Shadow2D","owner":"catchouli","lines":639,"langs":[["C++",525],["GLSL",114]],"first":"2014","last":"2014"},{"name":"ImageCategoriser","owner":"catchouli","lines":569,"langs":[["Python",569]],"first":"2019","last":"2019"},{"name":"cat.bio","owner":"catchouli","lines":533,"langs":[["HTML",193],["Rust",180],["CSS",160]],"first":"2023","last":"2023"},{"name":"robo","owner":"catchouli","lines":527,"langs":[["Haskell",527]],"first":"2016","last":"2016"},{"name":"tracy","owner":"catchouli","lines":482,"langs":[["C++",482]],"first":"2019","last":"2019"},{"name":"TexturePacker","owner":"Catchouli-old","lines":404,"langs":[["C",404]],"first":"2013","last":"2013"},{"name":"KeyRemap","owner":"Catchouli-old","lines":402,"langs":[["C++",402]],"first":"2014","last":"2014"},{"name":"neuron","owner":"catchouli","lines":400,"langs":[["Haskell",400]],"first":"2016","last":"2016"},{"name":"snailgas","owner":"Catchouli-old","lines":388,"langs":[["Haskell",372],["GLSL",16]],"first":"2017","last":"2017"},{"name":"vim","owner":"Catchouli-old","lines":382,"langs":[["Vim script",382]],"first":"2015","last":"2016"},{"name":"obs","owner":"catchouli","lines":374,"langs":[["C++",374]],"first":"2015","last":"2015"},{"name":"Volumetrics","owner":"Catchouli-old","lines":361,"langs":[["GLSL",361]],"first":"2017","last":"2017"},{"name":"webby","owner":"Catchouli-old","lines":350,"langs":[["Haskell",336],["HTML",12],["Shell",2]],"first":"2016","last":"2017"},{"name":"my-rust-vimrc","owner":"catchouli","lines":340,"langs":[["Vim script",340]],"first":"2022","last":"2023"},{"name":"Reinforcement","owner":"catchouli","lines":320,"langs":[["Python",320]],"first":"2019","last":"2019"},{"name":"ntsc-emulator","owner":"catchouli","lines":320,"langs":[["Rust",320]],"first":"2023","last":"2023"},{"name":"rena.talkhaus.com","owner":"catchouli","lines":317,"langs":[["JavaScript",206],["HTML",110],["Shell",1]],"first":"2021","last":"2021"},{"name":"Hasteroids","owner":"catchouli","lines":303,"langs":[["Haskell",303]],"first":"2016","last":"2016"},{"name":"Spire","owner":"Catchouli-old","lines":294,"langs":[["C#",294]],"first":"2020","last":"2020"},{"name":"penga","owner":"Catchouli-old","lines":253,"langs":[["JavaScript",218],["CSS",35]],"first":"2013","last":"2013"},{"name":"patchouli-discord","owner":"catchouli","lines":245,"langs":[["JavaScript",245]],"first":"2019","last":"2019"},{"name":"elysian","owner":"Catchouli-old","lines":243,"langs":[["Haskell",243]],"first":"2017","last":"2017"},{"name":"ray","owner":"catchouli","lines":214,"langs":[["Haskell",214]],"first":"2019","last":"2019"},{"name":"neuralnet","owner":"Catchouli-old","lines":211,"langs":[["C++",211]],"first":"2015","last":"2015"},{"name":"gdx","owner":"Catchouli-old","lines":191,"langs":[["Scala",144],["Java",47]],"first":"2018","last":"2018"},{"name":"rendertext","owner":"Catchouli-old","lines":164,"langs":[["Haskell",159],["GLSL",5]],"first":"2017","last":"2017"},{"name":"SimplePT","owner":"Catchouli-old","lines":159,"langs":[["C++",149],["GLSL",10]],"first":"2014","last":"2014"},{"name":"talkhausfansubs.talkhaus.com","owner":"catchouli","lines":139,"langs":[["CSS",110],["HTML",28],["Shell",1]],"first":"2021","last":"2021"},{"name":"Platformer","owner":"Pillowdrift","lines":114,"langs":[["GDScript",114]],"first":"2020","last":"2020"},{"name":"cat_watch","owner":"catchouli","lines":113,"langs":[["JavaScript",113]],"first":"2021","last":"2021"},{"name":"motion_detect_record","owner":"Catchouli-old","lines":91,"langs":[["Python",91]],"first":"2021","last":"2021"},{"name":"index.talkhaus.com","owner":"catchouli","lines":90,"langs":[["HTML",43],["Python",39],["Shell",8]],"first":"2021","last":"2021"},{"name":"hdoom","owner":"Catchouli-old","lines":88,"langs":[["Haskell",88]],"first":"2017","last":"2017"},{"name":"haskell_pixeldraw","owner":"catchouli","lines":88,"langs":[["Haskell",88]],"first":"2016","last":"2019"},{"name":"cryptopyre","owner":"Catchouli-old","lines":83,"langs":[["Haskell",83]],"first":"2020","last":"2020"},{"name":"raocow-dotnet","owner":"Catchouli-old","lines":65,"langs":[["C#",65]],"first":"2020","last":"2020"},{"name":"patchouli","owner":"Catchouli-old","lines":64,"langs":[["Ruby",64]],"first":"2015","last":"2015"},{"name":"synth","owner":"Catchouli-old","lines":42,"langs":[["Haskell",42]],"first":"2020","last":"2020"},{"name":"cimgui","owner":"Catchouli-Libraries","lines":1,"langs":[["C++",1]],"first":"2017","last":"2017"},{"name":"std140.rs","owner":"catchouli","lines":1,"langs":[["Rust",1]],"first":"2022","last":"2022"}]};
+const HAND = {"total":141565,"files":1862,"repo_count":113,"repos_scanned":119,"excluded":{"vendored":1639477,"generated or licensed":8978,"duplicate":1710617},"by_lang":[["C#",40250],["C++",39384],["Rust",18781],["Java",13854],["Haskell",5844],["JavaScript",5164],["CSS",2271],["GLSL",2213],["HTML",2035],["TypeScript",1959],["C",1892],["CUDA",1813],["HLSL/Cg",1479],["Ruby",1398],["Python",1170],["Vim script",722],["PHP",459],["Lua",259],["SQL",212],["Scala",144],["GDScript",114],["Shell",112],["Swift",32],["Kotlin",4]],"files_by_lang":{"C++":532,"C#":527,"Rust":179,"GLSL":54,"HLSL/Cg":18,"C":11,"CSS":26,"CUDA":10,"Lua":9,"Haskell":74,"Scala":2,"Java":164,"Python":23,"Ruby":71,"JavaScript":42,"Vim script":7,"Shell":19,"HTML":58,"GDScript":8,"TypeScript":6,"SQL":11,"Kotlin":1,"Swift":3,"PHP":7},"by_year":[["2012",19932],["2013",1729],["2014",49406],["2015",11022],["2016",3278],["2017",4883],["2018",2634],["2019",8643],["2020",5956],["2021",5639],["2022",13210],["2023",11243],["2025",2744],["2026",1246]],"lang_year":{"C++":{"2017":2136,"2014":16134,"2012":7265,"2015":9982,"2019":1872,"2018":1382,"2023":613},"C#":{"2012":12667,"2020":4221,"2014":14540,"2022":2160,"2021":4889,"2026":866,"2019":907},"Rust":{"2023":6739,"2022":9644,"2025":1946,"2020":452},"GLSL":{"2014":486,"2017":410,"2018":71,"2023":195,"2022":822,"2019":180,"2020":30,"2015":19},"HLSL/Cg":{"2014":465,"2020":1014},"C":{"2013":1476,"2017":412,"2015":4},"CSS":{"2022":72,"2016":3,"2013":35,"2026":322,"2023":763,"2015":267,"2014":2,"2019":536,"2021":110,"2025":161},"CUDA":{"2017":228,"2014":1509,"2019":76},"Lua":{"2014":92,"2015":167},"Haskell":{"2020":125,"2017":1411,"2018":839,"2016":3186,"2019":283},"Scala":{"2018":144},"Java":{"2018":47,"2014":13807},"Python":{"2021":130,"2019":889,"2018":151},"Ruby":{"2015":186,"2014":1212},"JavaScript":{"2013":218,"2014":231,"2026":56,"2021":319,"2015":81,"2019":3524,"2017":65,"2025":510,"2023":160},"Vim script":{"2015":312,"2016":70,"2022":290,"2023":50},"Shell":{"2016":8,"2025":84,"2022":2,"2015":4,"2021":10,"2019":1,"2017":1,"2026":2},"HTML":{"2016":11,"2017":220,"2023":668,"2022":216,"2014":469,"2021":181,"2019":233,"2025":37},"GDScript":{"2020":114},"TypeScript":{"2023":1959},"SQL":{"2023":60,"2019":142,"2022":4,"2025":6},"Kotlin":{"2023":4},"Swift":{"2023":32},"PHP":{"2014":459}},"repos":[{"name":"Private repositories (39)","owner":"various","lines":23513,"langs":[["C++",6990],["Rust",6215],["JavaScript",4125],["C#",2722]],"first":"2014","last":"2026"},{"name":"StellarSwing","owner":"Pillowdrift","lines":14188,"langs":[["C#",12554],["HLSL/Cg",1455],["JavaScript",179]],"first":"2014","last":"2021"},{"name":"MegaDrillerMole","owner":"Pillowdrift","lines":13807,"langs":[["Java",13807]],"first":"2014","last":"2014"},{"name":"dreamfield","owner":"catchouli","lines":7578,"langs":[["Rust",6913],["GLSL",521],["HTML",144]],"first":"2022","last":"2022"},{"name":"Box2DSandbox","owner":"Catchouli-old","lines":6529,"langs":[["C++",6529]],"first":"2014","last":"2014"},{"name":"Fariss","owner":"Catchouli-old","lines":6428,"langs":[["C#",6428]],"first":"2012","last":"2012"},{"name":"better_tactics","owner":"catchouli","lines":5969,"langs":[["Rust",2924],["TypeScript",1959],["CSS",603],["HTML",423]],"first":"2023","last":"2023"},{"name":"Acun3D","owner":"catchouli","lines":5421,"langs":[["C++",5421]],"first":"2012","last":"2012"},{"name":"VolumeRender","owner":"catchouli","lines":4462,"langs":[["C++",2953],["CUDA",1509]],"first":"2014","last":"2014"},{"name":"coment","owner":"catchouli","lines":3489,"langs":[["C++",3489]],"first":"2014","last":"2015"},{"name":"SuperShooterGuy3D","owner":"Catchouli-old","lines":3477,"langs":[["C#",3453],["HLSL/Cg",24]],"first":"2014","last":"2014"},{"name":"Roogle","owner":"catchouli","lines":2541,"langs":[["C#",2541]],"first":"2021","last":"2021"},{"name":"Planning","owner":"catchouli","lines":2421,"langs":[["C++",2421]],"first":"2014","last":"2014"},{"name":"Battleships","owner":"Catchouli-old","lines":2348,"langs":[["C#",2348]],"first":"2012","last":"2012"},{"name":"ca2d","owner":"Catchouli-old","lines":2220,"langs":[["C++",1766],["GLSL",362],["Lua",92]],"first":"2014","last":"2014"},{"name":"WorldGen","owner":"Catchouli-old","lines":2200,"langs":[["C#",2160],["CSS",40]],"first":"2022","last":"2022"},{"name":"NetPool","owner":"Catchouli-old","lines":2142,"langs":[["C#",2142]],"first":"2012","last":"2012"},{"name":"kumo","owner":"catchouli","lines":2098,"langs":[["C++",1851],["GLSL",171],["CUDA",76]],"first":"2018","last":"2019"},{"name":"StellarSwingClassic","owner":"Pillowdrift","lines":2047,"langs":[["C#",2047]],"first":"2014","last":"2014"},{"name":"everything.raocow","owner":"catchouli","lines":1846,"langs":[["Ruby",1334],["CSS",269],["HTML",161],["JavaScript",78]],"first":"2014","last":"2015"},{"name":"ali","owner":"Catchouli-old","lines":1844,"langs":[["C++",1844]],"first":"2012","last":"2012"},{"name":"akarui","owner":"Catchouli-old","lines":1770,"langs":[["C++",1524],["CUDA",228],["GLSL",18]],"first":"2017","last":"2017"},{"name":"RealTimeMeshSlicing","owner":"catchouli","lines":1355,"langs":[["C++",1355]],"first":"2014","last":"2015"},{"name":"Galaxy","owner":"Catchouli-old","lines":1257,"langs":[["Rust",1257]],"first":"2023","last":"2023"},{"name":"tyke","owner":"catchouli","lines":1121,"langs":[["Haskell",1114],["Shell",7]],"first":"2016","last":"2017"},{"name":"Graveroids","owner":"Catchouli-old","lines":1110,"langs":[["C#",1110]],"first":"2012","last":"2012"},{"name":"logwatcher","owner":"catchouli","lines":1076,"langs":[["C",1076]],"first":"2013","last":"2015"},{"name":"learny","owner":"Catchouli-old","lines":1035,"langs":[["Haskell",1032],["CSS",3]],"first":"2016","last":"2016"},{"name":"RaoVids","owner":"catchouli","lines":1010,"langs":[["C#",840],["CSS",170]],"first":"2026","last":"2026"},{"name":"wordie","owner":"catchouli","lines":975,"langs":[["Rust",971],["SQL",4]],"first":"2022","last":"2022"},{"name":"everythingv3","owner":"catchouli","lines":907,"langs":[["C#",907]],"first":"2019","last":"2019"},{"name":"hsr","owner":"Catchouli-old","lines":859,"langs":[["Haskell",839],["GLSL",20]],"first":"2018","last":"2018"},{"name":"planet","owner":"Catchouli-old","lines":801,"langs":[["C",412],["C++",379],["GLSL",10]],"first":"2017","last":"2017"},{"name":"tc","owner":"Catchouli-old","lines":718,"langs":[["C++",718]],"first":"2019","last":"2019"},{"name":"GoL","owner":"Catchouli-old","lines":639,"langs":[["C#",639]],"first":"2012","last":"2012"},{"name":"Shadow2D","owner":"catchouli","lines":639,"langs":[["C++",525],["GLSL",114]],"first":"2014","last":"2014"},{"name":"ImageCategoriser","owner":"catchouli","lines":569,"langs":[["Python",569]],"first":"2019","last":"2019"},{"name":"cat.bio","owner":"catchouli","lines":533,"langs":[["HTML",193],["Rust",180],["CSS",160]],"first":"2023","last":"2023"},{"name":"robo","owner":"catchouli","lines":527,"langs":[["Haskell",527]],"first":"2016","last":"2016"},{"name":"tracy","owner":"catchouli","lines":482,"langs":[["C++",482]],"first":"2019","last":"2019"},{"name":"TexturePacker","owner":"Catchouli-old","lines":404,"langs":[["C",404]],"first":"2013","last":"2013"},{"name":"KeyRemap","owner":"Catchouli-old","lines":402,"langs":[["C++",402]],"first":"2014","last":"2014"},{"name":"neuron","owner":"catchouli","lines":400,"langs":[["Haskell",400]],"first":"2016","last":"2016"},{"name":"snailgas","owner":"Catchouli-old","lines":388,"langs":[["Haskell",372],["GLSL",16]],"first":"2017","last":"2017"},{"name":"vim","owner":"Catchouli-old","lines":382,"langs":[["Vim script",382]],"first":"2015","last":"2016"},{"name":"obs","owner":"catchouli","lines":374,"langs":[["C++",374]],"first":"2015","last":"2015"},{"name":"Volumetrics","owner":"Catchouli-old","lines":361,"langs":[["GLSL",361]],"first":"2017","last":"2017"},{"name":"webby","owner":"Catchouli-old","lines":350,"langs":[["Haskell",336],["HTML",12],["Shell",2]],"first":"2016","last":"2017"},{"name":"my-rust-vimrc","owner":"catchouli","lines":340,"langs":[["Vim script",340]],"first":"2022","last":"2023"},{"name":"Reinforcement","owner":"catchouli","lines":320,"langs":[["Python",320]],"first":"2019","last":"2019"},{"name":"ntsc-emulator","owner":"catchouli","lines":320,"langs":[["Rust",320]],"first":"2023","last":"2023"},{"name":"rena.talkhaus.com","owner":"catchouli","lines":317,"langs":[["JavaScript",206],["HTML",110],["Shell",1]],"first":"2021","last":"2021"},{"name":"Hasteroids","owner":"catchouli","lines":303,"langs":[["Haskell",303]],"first":"2016","last":"2016"},{"name":"Spire","owner":"Catchouli-old","lines":294,"langs":[["C#",294]],"first":"2020","last":"2020"},{"name":"penga","owner":"Catchouli-old","lines":253,"langs":[["JavaScript",218],["CSS",35]],"first":"2013","last":"2013"},{"name":"patchouli-discord","owner":"catchouli","lines":245,"langs":[["JavaScript",245]],"first":"2019","last":"2019"},{"name":"elysian","owner":"Catchouli-old","lines":243,"langs":[["Haskell",243]],"first":"2017","last":"2017"},{"name":"ray","owner":"catchouli","lines":214,"langs":[["Haskell",214]],"first":"2019","last":"2019"},{"name":"neuralnet","owner":"Catchouli-old","lines":211,"langs":[["C++",211]],"first":"2015","last":"2015"},{"name":"gdx","owner":"Catchouli-old","lines":191,"langs":[["Scala",144],["Java",47]],"first":"2018","last":"2018"},{"name":"rendertext","owner":"Catchouli-old","lines":164,"langs":[["Haskell",159],["GLSL",5]],"first":"2017","last":"2017"},{"name":"SimplePT","owner":"Catchouli-old","lines":159,"langs":[["C++",149],["GLSL",10]],"first":"2014","last":"2014"},{"name":"talkhausfansubs.talkhaus.com","owner":"catchouli","lines":139,"langs":[["CSS",110],["HTML",28],["Shell",1]],"first":"2021","last":"2021"},{"name":"Platformer","owner":"Pillowdrift","lines":114,"langs":[["GDScript",114]],"first":"2020","last":"2020"},{"name":"cat_watch","owner":"catchouli","lines":113,"langs":[["JavaScript",113]],"first":"2021","last":"2021"},{"name":"motion_detect_record","owner":"Catchouli-old","lines":91,"langs":[["Python",91]],"first":"2021","last":"2021"},{"name":"index.talkhaus.com","owner":"catchouli","lines":90,"langs":[["HTML",43],["Python",39],["Shell",8]],"first":"2021","last":"2021"},{"name":"hdoom","owner":"Catchouli-old","lines":88,"langs":[["Haskell",88]],"first":"2017","last":"2017"},{"name":"haskell_pixeldraw","owner":"catchouli","lines":88,"langs":[["Haskell",88]],"first":"2016","last":"2019"},{"name":"cryptopyre","owner":"Catchouli-old","lines":83,"langs":[["Haskell",83]],"first":"2020","last":"2020"},{"name":"raocow-dotnet","owner":"Catchouli-old","lines":65,"langs":[["C#",65]],"first":"2020","last":"2020"},{"name":"patchouli","owner":"Catchouli-old","lines":64,"langs":[["Ruby",64]],"first":"2015","last":"2015"},{"name":"synth","owner":"Catchouli-old","lines":42,"langs":[["Haskell",42]],"first":"2020","last":"2020"},{"name":"cimgui","owner":"Catchouli-Libraries","lines":1,"langs":[["C++",1]],"first":"2017","last":"2017"},{"name":"std140.rs","owner":"catchouli","lines":1,"langs":[["Rust",1]],"first":"2022","last":"2022"}]};
+const AI = {"total":151093,"files":736,"repo_count":18,"excluded":{"generated or licensed":4858,"vendored":10640,"duplicate":2083},"by_lang":[["Rust",108939],["Python",11428],["C#",10920],["JavaScript",9858],["HTML",5492],["TypeScript",1759],["WGSL",1049],["CSS",1046],["Shell",418],["HLSL/Cg",184]],"by_month":[["2026-08",2671],["2026-09",84449],["2026-10",63973]],"lang_month":{"C#":{"2026-10":2356,"2026-09":8564},"HLSL/Cg":{"2026-10":184},"Python":{"2026-10":2867,"2026-09":7589,"2026-08":972},"Shell":{"2026-10":397,"2026-08":21},"JavaScript":{"2026-10":9414,"2026-09":444},"HTML":{"2026-10":1085,"2026-09":4407},"CSS":{"2026-10":850,"2026-09":196},"Rust":{"2026-10":46254,"2026-09":61007,"2026-08":1678},"TypeScript":{"2026-09":1759},"WGSL":{"2026-10":566,"2026-09":483}},"repos":[{"name":"venture","owner":"catchouli","lines":61088,"langs":[["Rust",59407],["Python",1080],["WGSL",483],["HTML",84]],"first":"2026-09","last":"2026-10"},{"name":"starcity","owner":"catchouli","lines":28093,"langs":[["Rust",26651],["Python",726],["WGSL",566],["Shell",63]],"first":"2026-10","last":"2026-10"},{"name":"flex","owner":"catchouli","lines":18123,"langs":[["Rust",16893],["JavaScript",1012],["CSS",195],["HTML",23]],"first":"2026-10","last":"2026-10"},{"name":"Private repositories (6)","owner":"various","lines":14666,"langs":[["C#",8564],["Rust",2004],["TypeScript",1759],["Python",1361]],"first":"2026-08","last":"2026-10"},{"name":"instructive-chess","owner":"catchouli","lines":8230,"langs":[["Python",7494],["JavaScript",544],["CSS",148],["HTML",44]],"first":"2026-09","last":"2026-10"},{"name":"yang-ching-super-coder-duck-game","owner":"catchouli","lines":6745,"langs":[["JavaScript",6685],["CSS",45],["HTML",15]],"first":"2026-10","last":"2026-10"},{"name":"BassTools","owner":"catchouli","lines":4281,"langs":[["HTML",4281]],"first":"2026-09","last":"2026-09"},{"name":"CatApp","owner":"catchouli","lines":3226,"langs":[["Rust",1915],["JavaScript",819],["CSS",277],["Python",107]],"first":"2026-10","last":"2026-10"},{"name":"StellarSwing","owner":"Pillowdrift","lines":3184,"langs":[["C#",2356],["Python",590],["HLSL/Cg",184],["Shell",54]],"first":"2026-10","last":"2026-10"},{"name":"wakeful","owner":"catchouli","lines":1296,"langs":[["Rust",1296]],"first":"2026-08","last":"2026-09"},{"name":"cat.bio","owner":"catchouli","lines":1190,"langs":[["HTML",622],["JavaScript",327],["CSS",171],["Shell",70]],"first":"2026-10","last":"2026-10"},{"name":"meownix","owner":"catchouli","lines":957,"langs":[["Rust",759],["Shell",124],["Python",70],["JavaScript",4]],"first":"2026-10","last":"2026-10"},{"name":"dreamfield","owner":"catchouli","lines":14,"langs":[["Rust",14]],"first":"2026-08","last":"2026-08"}]};
 const COLORS = {
   "C#": "#178600", "C++": "#f34b7d", "Rust": "#dea584", "Java": "#b07219", "Haskell": "#5e5086",
   "JavaScript": "#f1e05a", "CSS": "#663399", "GLSL": "#5686a5", "HTML": "#e34c26",
   "TypeScript": "#3178c6", "C": "#8a8a8a", "CUDA": "#3a9e5e", "HLSL/Cg": "#aace60",
   "Ruby": "#cc342d", "Python": "#3572A5", "Vim script": "#199f4b", "PHP": "#4F5D95",
   "Lua": "#4a4ad8", "SQL": "#e38c00", "Scala": "#c22d40", "GDScript": "#478cbf",
-  "Shell": "#89e051", "Swift": "#F05138", "Kotlin": "#A97BFF",
+  "Shell": "#89e051", "Swift": "#F05138", "Kotlin": "#A97BFF", "WGSL": "#1a5e9a",
 };
+const color = l => COLORS[l] || "#888";
 const fmt = n => n.toLocaleString("en-GB");
+const short = n => n >= 1000 ? (n / 1000).toFixed(n >= 10000 ? 0 : 1) + "k" : String(n);
 const $ = id => document.getElementById(id);
-const langs = DATA.by_lang.map(([l]) => l);
-const total = DATA.total;
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const monthName = m => MONTHS[+m.slice(5) - 1] + " ’" + m.slice(2, 4);
 
-$("total").textContent = fmt(total);
-const years = DATA.by_year.map(([y]) => +y);
-const yMin = Math.min(...years), yMax = Math.max(...years);
-$("stats").innerHTML = [
-  [fmt(DATA.repo_count), "repositories"], [fmt(DATA.files), "files"],
-  [langs.length, "languages"], [`${yMin}–${yMax}`, "span"],
-].map(([v, k]) => `<span><b>${v}</b> ${k}</span>`).join("");
+// Hero
+const yrs = HAND.by_year.map(([y]) => +y);
+$("hand-total").textContent = fmt(HAND.total);
+$("hand-sub").textContent = `${yrs[0]} to July 2026 · ${HAND.by_lang.length} languages · ${HAND.repo_count} repos`;
+$("ai-total").textContent = fmt(AI.total);
+const aiMonths = AI.by_month.map(([m]) => m);
+$("ai-sub").textContent = `${monthName(aiMonths[0])} to ${monthName(aiMonths[aiMonths.length - 1])} · ${AI.by_lang.length} languages · ${AI.repo_count} repos`;
+const handPerMonth = HAND.total / ((2026 - yrs[0]) * 12 + 7);
+const aiPerMonth = AI.total / 2.5;
+$("ratio").innerHTML = `That's about <b>${fmt(Math.round(handPerMonth))}</b> lines a month by hand, and <b>${fmt(Math.round(aiPerMonth))}</b> a month with AI: roughly <b>${Math.round(aiPerMonth / handPerMonth)}×</b> as much.`;
 
-// Language bar and legend
+// Tooltip
 const tip = $("tip");
 function showTip(e, html) {
   tip.innerHTML = html; tip.hidden = false;
@@ -178,106 +204,125 @@ function showTip(e, html) {
   tip.style.left = x + "px"; tip.style.top = y + "px";
 }
 const hideTip = () => { tip.hidden = true; };
-function highlight(lang) {
-  document.querySelectorAll("[data-lang]").forEach(el => {
-    el.classList.toggle("dim", lang && el.dataset.lang !== lang);
-    if (el.tagName === "rect" || el.tagName === "SPAN") el.style.opacity = lang && el.dataset.lang !== lang ? 0.25 : "";
-  });
-}
-DATA.by_lang.forEach(([l, n], i) => {
-  const s = document.createElement("span");
-  s.style.flex = n; s.style.background = COLORS[l] || "#888"; s.dataset.lang = l;
-  s.style.animationDelay = (i * 30) + "ms";
-  s.addEventListener("mousemove", e => showTip(e, `<h4>${l}</h4><div><span>Lines</span><b class="num">${fmt(n)}</b></div><div><span>Share</span><b class="num">${(100 * n / total).toFixed(1)}%</b></div>`));
-  s.addEventListener("mouseleave", hideTip);
-  $("langbar").append(s);
-  const li = document.createElement("li");
-  li.dataset.lang = l;
-  li.innerHTML = `<span class="dot" style="background:${COLORS[l] || "#888"}"></span><span>${l}</span><span class="num">${fmt(n)}</span><span class="num pct">${(100 * n / total).toFixed(1)}%</span>`;
-  li.addEventListener("mouseenter", () => highlight(l));
-  li.addEventListener("mouseleave", () => highlight(null));
-  $("legend").append(li);
-});
+const tipRows = (title, rows) => {
+  const sum = rows.reduce((s, [, n]) => s + n, 0);
+  return `<h4>${title}</h4>` + rows.slice(0, 8).map(([l, n]) => `<div><span><span class="dot" style="width:8px;height:8px;background:${color(l)}"></span> ${l}</span><b class="num">${fmt(n)}</b></div>`).join("")
+    + (rows.length > 8 ? `<div class="muted"><span>+${rows.length - 8} more</span></div>` : "")
+    + `<div style="border-top:1px solid var(--line);margin-top:6px;padding-top:6px"><span>Total</span><b class="num">${fmt(sum)}</b></div>`;
+};
 
-// Stacked year chart
-const allYears = []; for (let y = yMin; y <= yMax; y++) allYears.push(y);
-const byYear = Object.fromEntries(DATA.by_year);
-const maxY = Math.max(...Object.values(byYear));
-const W = 980, H = 340, L = 54, B = 28, T = 14;
-const bw = (W - L - 10) / allYears.length;
-const step = maxY > 40000 ? 10000 : 5000;
-const yTop = Math.ceil(maxY / step) * step;
+// Timeline: years by hand, then months with AI
+const cols = [];
+for (let y = yrs[0]; y <= 2026; y++) cols.push({ key: String(y), label: y === 2026 ? "’26 Jan–Jul" : "’" + String(y).slice(2), era: "hand", data: HAND.lang_year, year: y });
+aiMonths.forEach(m => cols.push({ key: m, label: monthName(m), era: "ai", data: AI.lang_month }));
+const allLangs = [...new Set([...HAND.by_lang.map(([l]) => l), ...AI.by_lang.map(([l]) => l)])];
+cols.forEach(c => {
+  c.rows = allLangs.map(l => [l, (c.data[l] || {})[c.key] || 0]).filter(([, n]) => n).sort((a, b) => b[1] - a[1]);
+  c.sum = c.rows.reduce((s, [, n]) => s + n, 0);
+});
+const W = 1000, H = 360, L = 54, B = 30, T = 18, GAP = 26;
+const maxV = Math.max(...cols.map(c => c.sum));
+const step = 10000, yTop = Math.ceil(maxV / step) * step;
 const sy = v => H - B - (v / yTop) * (H - B - T);
-const svg = $("years");
+const bw = (W - L - 10 - GAP) / cols.length;
+const svg = $("timeline");
 svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
-svg.style.minWidth = "640px"; svg.style.width = "100%";
-let out = "";
+svg.style.minWidth = "700px"; svg.style.width = "100%";
+let out = `<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="2" height="6" fill="rgba(255,255,255,0.28)"/></pattern></defs>`;
 for (let v = 0; v <= yTop; v += step) {
-  out += `<line x1="${L}" x2="${W - 6}" y1="${sy(v)}" y2="${sy(v)}" stroke="var(--line)" stroke-width="1"/>`;
-  out += `<text x="${L - 8}" y="${sy(v) + 4}" text-anchor="end">${v ? (v / 1000) + "k" : "0"}</text>`;
+  out += `<line x1="${L}" x2="${W - 6}" y1="${sy(v)}" y2="${sy(v)}" stroke="var(--line)"/>`;
+  out += `<text x="${L - 8}" y="${sy(v) + 4}" text-anchor="end">${v ? v / 1000 + "k" : "0"}</text>`;
 }
-allYears.forEach((y, i) => {
-  const x = L + i * bw + bw * 0.18, w = bw * 0.64;
+let firstAi = cols.findIndex(c => c.era === "ai");
+const xOf = i => L + i * bw + (i >= firstAi ? GAP : 0);
+const sepX = xOf(firstAi) - GAP / 2;
+out += `<line x1="${sepX}" x2="${sepX}" y1="${T - 6}" y2="${H - B}" stroke="var(--muted)" stroke-dasharray="3 4"/>`;
+out += `<text x="${sepX - 6}" y="${T + 4}" text-anchor="end" style="fill:var(--hand)">by hand · per year</text>`;
+out += `<text x="${sepX + 6}" y="${T + 4}" style="fill:var(--ai)">with AI · per month</text>`;
+cols.forEach((c, i) => {
+  const x = xOf(i) + bw * 0.16, w = bw * 0.68;
   let acc = 0;
-  langs.slice().reverse().forEach(l => {
-    const n = (DATA.lang_year[l] || {})[y] || 0;
-    if (!n) return;
+  c.rows.slice().reverse().forEach(([l, n]) => {
     const y0 = sy(acc), y1 = sy(acc + n);
-    out += `<rect data-lang="${l}" data-year="${y}" x="${x}" y="${y1}" width="${w}" height="${Math.max(0.5, y0 - y1)}" fill="${COLORS[l] || "#888"}"/>`;
+    out += `<rect x="${x}" y="${y1}" width="${w}" height="${Math.max(0.5, y0 - y1)}" fill="${color(l)}"/>`;
     acc += n;
   });
-  out += `<rect class="hit" data-year="${y}" x="${L + i * bw}" y="${T}" width="${bw}" height="${H - B - T}" fill="transparent"/>`;
-  out += `<text x="${L + i * bw + bw / 2}" y="${H - 8}" text-anchor="middle">’${String(y).slice(2)}</text>`;
-  if (acc) out += `<text x="${L + i * bw + bw / 2}" y="${sy(acc) - 6}" text-anchor="middle" style="fill:var(--fg)">${acc >= 1000 ? (acc / 1000).toFixed(acc >= 10000 ? 0 : 1) + "k" : acc}</text>`;
+  if (c.era === "ai" && acc) out += `<rect x="${x}" y="${sy(acc)}" width="${w}" height="${sy(0) - sy(acc)}" fill="url(#hatch)"/>`;
+  out += `<rect class="hit" data-i="${i}" x="${xOf(i)}" y="${T}" width="${bw}" height="${H - B - T}" fill="transparent"/>`;
+  const lab = c.label.split(" ");
+  out += `<text x="${xOf(i) + bw / 2}" y="${H - 14}" text-anchor="middle" style="fill:${c.era === "ai" ? "var(--ai)" : "var(--muted)"}">${lab[0]}</text>`;
+  if (lab[1]) out += `<text x="${xOf(i) + bw / 2}" y="${H - 2}" text-anchor="middle" style="font-size:9px">${lab[1]}</text>`;
+  if (acc) out += `<text x="${xOf(i) + bw / 2}" y="${sy(acc) - 6}" text-anchor="middle" style="fill:var(--fg)">${short(acc)}</text>`;
 });
 svg.innerHTML = out;
 svg.querySelectorAll("rect.hit").forEach(r => {
-  const y = +r.dataset.year;
-  r.addEventListener("mousemove", e => {
-    const rows = langs.map(l => [l, (DATA.lang_year[l] || {})[y] || 0]).filter(([, n]) => n).sort((a, b) => b[1] - a[1]);
-    const sum = rows.reduce((s, [, n]) => s + n, 0);
-    showTip(e, `<h4>${y}</h4>` + (rows.length ? rows.slice(0, 8).map(([l, n]) => `<div><span><span class="dot" style="display:inline-block;width:8px;height:8px;background:${COLORS[l]}"></span> ${l}</span><b class="num">${fmt(n)}</b></div>`).join("") + (rows.length > 8 ? `<div class="muted"><span>+${rows.length - 8} more</span></div>` : "") + `<div style="border-top:1px solid var(--line);margin-top:6px;padding-top:6px"><span>Total</span><b class="num">${fmt(sum)}</b></div>` : `<div class="muted">Nothing committed this year</div>`));
-  });
+  const c = cols[+r.dataset.i];
+  const title = c.era === "ai" ? `${monthName(c.key)} · with AI` : c.year === 2026 ? "Jan–Jul 2026 · by hand" : `${c.key} · by hand`;
+  r.addEventListener("mousemove", e => showTip(e, c.rows.length ? tipRows(title, c.rows) : `<h4>${title}</h4><div class="muted">Nothing committed</div>`));
   r.addEventListener("mouseleave", hideTip);
 });
 
-// Heatmap: language rows × year columns
-const heatMax = Math.max(...langs.flatMap(l => Object.values(DATA.lang_year[l] || {})));
-let h = `<thead><tr><th></th>${allYears.map(y => `<th>${y}</th>`).join("")}<th>Total</th></tr></thead><tbody>`;
-langs.forEach(l => {
-  const c = COLORS[l] || "#888";
-  h += `<tr><th class="lang"><span class="dot" style="display:inline-block;margin-right:8px;background:${c}"></span>${l}</th>`;
-  allYears.forEach(y => {
-    const n = (DATA.lang_year[l] || {})[y] || 0;
-    if (!n) { h += `<td></td>`; return; }
-    const a = Math.max(0.14, Math.sqrt(n / heatMax));
-    const label = n >= 1000 ? (n / 1000).toFixed(n >= 10000 ? 0 : 1) + "k" : n;
-    const pct = Math.round(a * 100);
-    h += `<td title="${l}, ${y}: ${fmt(n)} lines" style="background:color-mix(in srgb, ${c} ${pct}%, var(--cell));color:${a > 0.55 ? "#fff" : "var(--fg)"}">${label}</td>`;
+// Era-dependent sections
+let era = "hand", showing = 18;
+function render() {
+  const D = era === "hand" ? HAND : AI;
+  const accent = era === "hand" ? "var(--hand)" : "var(--ai)";
+  ["lang-eyebrow", "heat-eyebrow"].forEach(id => $(id).style.color = accent);
+  $("lang-eyebrow").textContent = era === "hand" ? "By language · by hand" : "By language · with AI";
+
+  $("langbar").innerHTML = ""; $("legend").innerHTML = "";
+  D.by_lang.forEach(([l, n], i) => {
+    const s = document.createElement("span");
+    s.style.flex = n; s.style.background = color(l); s.style.animationDelay = i * 30 + "ms";
+    s.addEventListener("mousemove", e => showTip(e, `<h4>${l}</h4><div><span>Lines</span><b class="num">${fmt(n)}</b></div><div><span>Share</span><b class="num">${(100 * n / D.total).toFixed(1)}%</b></div>`));
+    s.addEventListener("mouseleave", hideTip);
+    $("langbar").append(s);
+    const li = document.createElement("li");
+    li.innerHTML = `<span class="dot" style="background:${color(l)}"></span><span>${l}</span><span class="num">${fmt(n)}</span><span class="num pct">${(100 * n / D.total).toFixed(1)}%</span>`;
+    $("legend").append(li);
   });
-  h += `<td class="total">${fmt(DATA.by_lang.find(([x]) => x === l)[1])}</td></tr>`;
-});
-h += `<tr><th class="lang">All</th>${allYears.map(y => `<td class="total" style="text-align:center">${byYear[y] ? (byYear[y] >= 1000 ? (byYear[y] / 1000).toFixed(1) + "k" : byYear[y]) : ""}</td>`).join("")}<td class="total">${fmt(total)}</td></tr></tbody>`;
-$("heat").innerHTML = h;
 
-// Repos
-function repoCard(r) {
-  const sum = r.langs.reduce((s, [, n]) => s + n, 0);
-  const span = r.first === r.last ? r.first : `${r.first}–${r.last}`;
-  return `<article class="repo"><header><span class="name">${r.name}</span><span class="num">${fmt(r.lines)}</span></header>
-    <div class="mini">${r.langs.map(([l, n]) => `<span style="flex:${n};background:${COLORS[l] || "#888"}" title="${l}: ${fmt(n)}"></span>`).join("")}</div>
-    <div class="meta">${r.owner} · ${span} · ${r.langs.map(([l]) => l).join(", ")}</div></article>`;
-}
-let showing = 18;
-function renderRepos() {
-  $("repos").innerHTML = DATA.repos.slice(0, showing).map(repoCard).join("");
-  $("more").hidden = showing >= DATA.repos.length;
-}
-$("more").addEventListener("click", () => { showing = DATA.repos.length; renderRepos(); });
-renderRepos();
+  const periods = era === "hand" ? Array.from({ length: 2026 - yrs[0] + 1 }, (_, i) => String(yrs[0] + i)) : aiMonths;
+  const lp = era === "hand" ? HAND.lang_year : AI.lang_month;
+  const langs = D.by_lang.map(([l]) => l);
+  $("heat-eyebrow").textContent = era === "hand" ? "Language × year · by hand" : "Language × month · with AI";
+  $("heat-title").textContent = era === "hand" ? "Every language, every year" : "Every language, every month";
+  const heatMax = Math.max(...langs.flatMap(l => Object.values(lp[l] || {})));
+  const colTotals = periods.map(p => langs.reduce((s, l) => s + ((lp[l] || {})[p] || 0), 0));
+  let h = `<thead><tr><th></th>${periods.map(p => `<th>${era === "hand" ? p : monthName(p)}</th>`).join("")}<th>Total</th></tr></thead><tbody>`;
+  langs.forEach(l => {
+    h += `<tr><th class="lang"><span class="dot" style="margin-right:8px;background:${color(l)}"></span>${l}</th>`;
+    periods.forEach(p => {
+      const n = (lp[l] || {})[p] || 0;
+      if (!n) { h += `<td></td>`; return; }
+      const a = Math.max(0.14, Math.sqrt(n / heatMax));
+      h += `<td title="${l}, ${p}: ${fmt(n)} lines" style="background:color-mix(in srgb, ${color(l)} ${Math.round(a * 100)}%, var(--cell));color:${a > 0.55 ? "#fff" : "var(--fg)"}">${short(n)}</td>`;
+    });
+    h += `<td class="total">${fmt(D.by_lang.find(([x]) => x === l)[1])}</td></tr>`;
+  });
+  h += `<tr><th class="lang">All</th>${colTotals.map(n => `<td class="total" style="text-align:center">${n ? short(n) : ""}</td>`).join("")}<td class="total">${fmt(D.total)}</td></tr></tbody>`;
+  $("heat").innerHTML = h;
 
-const ex = DATA.excluded;
-$("excl").innerHTML = `<span>Left out: <b>${fmt(ex.vendored || 0)}</b> vendored</span><span><b>${fmt(ex.duplicate || 0)}</b> duplicate</span><span><b>${fmt(ex["generated or licensed"] || 0)}</b> generated or licensed</span>`;
+  const card = r => {
+    const span = era === "hand" ? (r.first === r.last ? r.first : `${r.first}–${r.last}`)
+      : (r.first === r.last ? monthName(r.first) : `${monthName(r.first)}–${monthName(r.last)}`);
+    return `<article class="repo"><header><span class="name">${r.name}</span><span class="num">${fmt(r.lines)}</span></header>
+      <div class="mini">${r.langs.map(([l, n]) => `<span style="flex:${n};background:${color(l)}" title="${l}: ${fmt(n)}"></span>`).join("")}</div>
+      <div class="meta">${r.owner} · ${span} · ${r.langs.map(([l]) => l).join(", ")}</div></article>`;
+  };
+  $("repos").innerHTML = D.repos.slice(0, showing).map(card).join("");
+  $("more").hidden = showing >= D.repos.length;
+}
+function setEra(e) {
+  era = e; showing = 18;
+  $("sw-hand").setAttribute("aria-pressed", e === "hand");
+  $("sw-ai").setAttribute("aria-pressed", e === "ai");
+  render();
+}
+$("sw-hand").addEventListener("click", () => setEra("hand"));
+$("sw-ai").addEventListener("click", () => setEra("ai"));
+$("more").addEventListener("click", () => { showing = Infinity; render(); });
+render();
 </script>
 </body>
 </html>
