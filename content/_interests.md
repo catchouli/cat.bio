@@ -5,7 +5,7 @@ render = false
 <li><span class="interest-name">Chess</span>
     <a href="/projects/better-tactics/">Better Tactics</a> · <a href="/projects/instructive-chess/">Instructive Chess</a></li>
 <li><span class="interest-name">Game dev</span>
-    <a href="/projects/venture/">Venture</a> · <a href="/projects/dreamfield/">Dreamfield</a></li>
+    <a href="/projects/stellar-swing/">Stellar Swing</a> · <a href="/projects/dreamfield/">Dreamfield</a></li>
 <li><span class="interest-name">Graphics</span>
     <a href="/projects/clouds/">Volumetric clouds</a> · <a href="/projects/svo/">Voxel ray tracing</a></li>
 <li><span class="interest-name">Music</span>

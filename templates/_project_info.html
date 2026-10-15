@@ -12,6 +12,9 @@
     {% endif %}
 
     <p class="project-links">
+        {% if page.extra.steam_link %}
+        <a href="{{ page.extra.steam_link }}">[steam]</a>
+        {% endif %}
         {% if page.extra.link %}
         <a href="{{ page.extra.link }}">[link]</a>
         {% endif %}
