@@ -1,0 +1,41 @@
+# Builds the site on every push to main and attaches it as site.zip to the "site"
+# release, so the latest build is always at:
+#   https://github.com/catchouli/cat.bio/releases/download/site/site.zip
+name: Build site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  ZOLA_VERSION: 0.23.6
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Zola
+        run: |
+          curl -sL "https://github.com/getzola/zola/releases/download/v${ZOLA_VERSION}/zola-v${ZOLA_VERSION}-x86_64-unknown-linux-gnu.tar.gz" | tar xz
+          sudo mv zola /usr/local/bin/
+
+      - name: Build
+        run: zola build
+
+      - name: Zip
+        run: cd public && zip -qr ../site.zip .
+
+      - name: Publish to the "site" release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Recreate the release so its tag points at this commit.
+          gh release delete site --cleanup-tag --yes || true
+          gh release create site site.zip --target "$GITHUB_SHA" --title "Latest site build" \
+            --notes "Built from $GITHUB_SHA. Unzip into the web root."
