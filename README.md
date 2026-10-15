@@ -13,6 +13,17 @@ zola build    # writes the site to public/
 
 Zola resizes project images on build and caches them in `static/processed_images/`, which is git-ignored.
 
+## Deploying
+
+Every push to `main` runs `.github/workflows/build.yml`, which builds the site and attaches it as `site.zip` to the `site` release. To deploy, on the server:
+
+```sh
+wget -O site.zip https://github.com/catchouli/cat.bio/releases/download/site/site.zip
+unzip -o site.zip -d /path/to/web/root
+```
+
+The Actions tab shows whether the latest build worked; it can also be rerun by hand from there.
+
 ## Layout
 
 | Path | What's there |

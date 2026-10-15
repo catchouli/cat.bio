@@ -29,4 +29,4 @@ From the site and CV review on 2026-10-13. The full reasoning is in `~/projects/
 
 ## Docs
 
-- [ ] **Document how the site is deployed** in README.md.
+- [x] **Document how the site is deployed** in README.md. (2026-10-15: GitHub Action builds site.zip; deploy is a manual wget + unzip.)
