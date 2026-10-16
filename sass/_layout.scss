@@ -94,6 +94,31 @@ body.ps1 #ferris-container.ps1-ready {
     #ferris-container:hover {
         transform: rotate(5deg);
     }
+
+    /* A little graffiti by Claude: faint and crooked, with a confession on hover. */
+    #graffiti {
+        display: block;
+        width: fit-content;
+        margin: 0.25rem auto 0;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.7rem;
+        opacity: 0.35;
+        transform: rotate(-3deg);
+        transition: opacity 0.3s, transform 0.3s;
+        cursor: default;
+
+        .confession { display: none; }
+        .spark { display: inline-block; transition: transform 0.6s; }
+    }
+
+    #graffiti:hover {
+        opacity: 0.9;
+        transform: rotate(0deg);
+
+        .short { display: none; }
+        .confession { display: inline; }
+        .spark { color: $heading-color-dark; transform: rotate(180deg); }
+    }
 }
 
 .nav {
