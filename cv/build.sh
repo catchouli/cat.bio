@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
-# Regenerates the CV PDFs from the HTML sources in src/, using headless Chrome.
+# Regenerates the CV PDF from src/cv-medium.html, using headless Chrome.
 #
 # Usage:
-#   ./build.sh              # rebuild all three PDFs
-#   ./build.sh medium       # rebuild just one: full | medium | concise
+#   ./build.sh
 #
-# Edit the HTML/CSS in src/cv-*.html, then re-run this script. The PDFs go in out/
-# (git-ignored). cv-medium.html is the main version: it's also copied to
-# ../static/cv.pdf, which is the CV linked from the site.
+# Edit the HTML/CSS in src/cv-medium.html, then re-run this script. The PDF goes in
+# out/ (git-ignored) and is copied to ../static/cv.pdf, which is the CV linked from
+# the site.
 
 set -euo pipefail
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -47,32 +46,8 @@ render() {
     "file://$DIR/src/$src" >/dev/null 2>&1
 }
 
-TARGET="${1:-all}"
-
-case "$TARGET" in
-  full)
-    render "cv-full.html" "Caitlin Wilks - CV (Full).pdf"
-    ;;
-  medium)
-    render "cv-medium.html" "Caitlin Wilks - CV (Medium).pdf"
-    ;;
-  concise)
-    render "cv-concise.html" "Caitlin Wilks - CV (Concise).pdf"
-    ;;
-  all)
-    render "cv-full.html" "Caitlin Wilks - CV (Full).pdf"
-    render "cv-medium.html" "Caitlin Wilks - CV (Medium).pdf"
-    render "cv-concise.html" "Caitlin Wilks - CV (Concise).pdf"
-    ;;
-  *)
-    echo "Unknown target: $TARGET (use: full | medium | concise | all)" >&2
-    exit 1
-    ;;
-esac
-
-if [ -f "$OUT/Caitlin Wilks - CV (Medium).pdf" ] && [[ "$TARGET" == medium || "$TARGET" == all ]]; then
-  cp "$OUT/Caitlin Wilks - CV (Medium).pdf" "$DIR/../static/cv.pdf"
-  echo "Copied the Medium CV to static/cv.pdf"
-fi
+render "cv-medium.html" "Caitlin Wilks - CV.pdf"
+cp "$OUT/Caitlin Wilks - CV.pdf" "$DIR/../static/cv.pdf"
+echo "Copied the CV to static/cv.pdf"
 
 echo "Done."

@@ -64,10 +64,10 @@ To feature a project on the home page, add its path to the `featured` list near 
 
 ## The CV
 
-The CV is HTML in `cv/src/`, printed to PDF with headless Chrome. `cv-medium.html` is the main one; `cv-full.html` and `cv-concise.html` are longer and shorter versions. After editing, run:
+The CV is HTML in `cv/src/cv-medium.html`, printed to PDF with headless Chrome. After editing, run:
 
 ```sh
-cv/build.sh          # all three, or: cv/build.sh medium | full | concise
+cv/build.sh
 ```
 
-The PDFs go in `cv/out/` (git-ignored), and the Medium one is copied to `static/cv.pdf`. Needs Google Chrome or Chromium.
+The PDF goes in `cv/out/` (git-ignored) and is copied to `static/cv.pdf`. Needs Google Chrome or Chromium.
